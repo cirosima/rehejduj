@@ -3,2756 +3,792 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="geo.region" content="BE">
-    <meta name="geo.placename" content="Brussels, Belgium">
-    <meta name="description" content="PrimeHomesEU - Premium rental properties across Brussels and Belgium. Find your perfect studio, apartment, or home in the heart of Europe.">
-    <meta name="keywords" content="brussels rental, belgium apartments, studio brussels, 1-bedroom apartment brussels, property to rent belgium, eu rentals, furnished apartments brussels">
-    <meta name="author" content="PrimeHomesEU">
-    <meta property="og:title" content="PrimeHomesEU | Premium Rentals in Brussels & Belgium">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.primehomes.eu">
-    <meta property="og:image" content="https://images.unsplash.com/photo-1558882224-dda1667334bb?auto=format&fit=crop&w=1470&q=80">
-    <meta property="og:description" content="Discover premium rental properties across Brussels and Belgium. Studios, apartments, and homes for rent in prime locations.">
-    <meta name="twitter:card" content="summary_large_image">
-    <title>PrimeHomesEU | Premium Rentals in eu</title>
-    
-    <!-- Tailwind CSS -->
+    <title>DCC Legal Chambers | Counsel Banking</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- AOS Animation Library -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    
     <style>
-        * {
-            font-family: 'Inter', sans-serif;
+        .corporate-gradient {
+            background: linear-gradient(135deg, #0A2E45 0%, #0B3B5E 100%);
         }
-        
-        .playfair {
-            font-family: 'Playfair Display', serif;
-        }
-        
-        /* Modern Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.5); }
-        }
-        
-        @keyframes slideInFromBottom {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.9);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        
-        .property-card {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0;
-            animation: slideInFromBottom 0.6s ease forwards;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .property-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.7s ease;
-            z-index: 1;
-            pointer-events: none;
-        }
-        
-        .property-card:hover::before {
-            left: 100%;
-        }
-        
-        .property-card:hover {
-            transform: translateY(-12px) scale(1.02);
-            box-shadow: 0 30px 40px -20px rgba(0, 0, 0, 0.3);
-        }
-        
-        .property-card .image-container {
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .property-card img {
-            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .property-card:hover img {
-            transform: scale(1.1);
-        }
-        
-        .featured-card {
-            border: 2px solid transparent;
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #667eea, #764ba2) border-box;
-            animation: glow 3s infinite;
-        }
-        
-        .hero-bg {
-            background-image: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%), 
-                url('https://images.unsplash.com/photo-1558882224-dda1667334bb?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
-            isolation: isolate;
-        }
-        
-        .hero-bg::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(59, 130, 246, 0.2), transparent 50%);
-            z-index: -1;
-        }
-        
-        .hero-content {
-            animation: scaleIn 1s ease;
-        }
-        
-        .floating-badge {
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        .testimonial-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .testimonial-card:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 25px 30px -15px rgba(0,0,0,0.2);
-            background: white;
-        }
-        
-        .mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
-        }
-        
-        .mobile-menu.open {
-            max-height: 400px;
-        }
-        
-        .filter-btn {
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .filter-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(59, 130, 246, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s, height 0.6s;
-        }
-        
-        .filter-btn:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-        
-        .filter-btn.active {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: white;
-            box-shadow: 0 10px 20px -5px rgba(59, 130, 246, 0.5);
-        }
-        
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        
-        .nav-link.active {
-            color: #3b82f6;
-        }
-        
-        .nav-link.active::after {
-            width: 100%;
-        }
-        
-        .gradient-text {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        
-        .glass-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-        }
-        
-        .search-section {
-            transition: all 0.5s ease;
-            animation: slideInFromBottom 1s ease;
-        }
-        
-        .search-section:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px -15px rgba(0,0,0,0.2);
-        }
-        
-        .occupied-badge {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            animation: glow 2s infinite;
-        }
-        
-        .slideshow-container {
-            position: relative;
-            border-radius: 1rem;
-            overflow: hidden;
-            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.2);
-        }
-        
-        .slideshow-nav {
-            transition: all 0.3s ease;
-            opacity: 0;
-        }
-        
-        .slideshow-container:hover .slideshow-nav {
-            opacity: 1;
-        }
-        
-        .slideshow-nav:hover {
-            transform: translateY(-50%) scale(1.1);
-            background: rgba(59, 130, 246, 0.9);
-        }
-        
-        .thumbnail {
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-        
-        .thumbnail:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 15px -5px rgba(0,0,0,0.2);
-        }
-        
-        .thumbnail.active {
-            border-color: #3b82f6;
-            transform: scale(0.95);
-        }
-        
-        .gradient-border {
-            position: relative;
-            border: 2px solid transparent;
-            background: linear-gradient(white, white) padding-box,
-                        linear-gradient(135deg, #667eea, #764ba2) border-box;
-        }
-        
-        .floating-shapes {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 0;
-        }
-        
-        .shape {
-            position: absolute;
-            background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1));
-            border-radius: 50%;
-            filter: blur(40px);
-        }
-        
-        .shape-1 {
-            width: 300px;
-            height: 300px;
-            top: -150px;
-            left: -150px;
-            animation: float 8s ease-in-out infinite;
-        }
-        
-        .shape-2 {
-            width: 400px;
-            height: 400px;
-            bottom: -200px;
-            right: -200px;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-        
-        .loading-skeleton {
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-        }
-        
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-        
-        .toast-notification {
-            animation: slideInRight 0.3s ease, fadeOut 0.3s ease 2.7s;
-        }
-        
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-        
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-        }
-        
-        .counter-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: countUp 2s ease-out;
-        }
-        
-        .secret-login-trigger {
-            transition: all 0.3s ease;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .secret-login-trigger:hover {
-            transform: scale(1.1) rotate(90deg);
-            background: rgba(59, 130, 246, 0.3);
-        }
-        
-        .modal-content {
-            animation: scaleIn 0.3s ease;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .key-digit {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            background: white;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
-        }
-        
-        .key-digit.selected {
-            transform: scale(1.1);
-            box-shadow: 0 10px 15px -3px rgba(59,130,246,0.3);
-        }
-        
-        .keypad-btn {
+        .transaction-card {
             transition: all 0.2s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        
-        .keypad-btn:hover {
+        .transaction-card:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        
-        .keypad-btn:active {
+        .pending-badge {
+            background: #FEF3C7;
+            color: #D97706;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        .sent-badge {
+            background: #D1FAE5;
+            color: #059669;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+        .modal {
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            opacity: 0;
+            visibility: hidden;
+        }
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal.active .modal-content {
             transform: translateY(0);
         }
-        
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: #e5e7eb;
+            overflow: hidden;
         }
-        
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s ease;
         }
-        
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 5px;
+        .loading-spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #1A4A6F;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
         }
-        
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #764ba2, #667eea);
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        /* Responsive Design Improvements */
-        @media (max-width: 768px) {
-            .counter-number {
-                font-size: 1.8rem;
-            }
-            
-            .property-card {
-                margin-bottom: 1rem;
-            }
-        }
-        
-        /* Loading States */
-        .lazy-image {
+        .processing-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
-        
-        .lazy-image.loaded {
+        .processing-overlay.active {
             opacity: 1;
+            visibility: visible;
         }
-        
-        /* Hover Effects */
-        .hover-lift {
-            transition: transform 0.3s ease;
+        .toast-notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease forwards;
         }
-        
-        .hover-lift:hover {
-            transform: translateY(-4px);
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
-        
-        .hover-glow:hover {
-            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+        .receipt-watermark {
+            position: relative;
+            overflow: hidden;
         }
-        
-        /* Gradient Backgrounds */
-        .bg-gradient-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        .receipt-watermark::after {
+            content: "CONFIRMED";
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 60px;
+            font-weight: bold;
+            color: rgba(0,0,0,0.03);
+            transform: rotate(-15deg);
+            pointer-events: none;
         }
-        
-        .bg-gradient-secondary {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        .notification-pulse {
+            animation: pulse 2s infinite;
         }
-        
-        /* Text Gradients */
-        .text-gradient-primary {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
     </style>
 </head>
-<body class="bg-gray-50 smooth-scroll overflow-x-hidden">
+<body class="min-h-screen bg-gray-50">
 
-<!-- Floating Shapes Background -->
-<div class="floating-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-</div>
-
-<!-- Secret Admin Trigger (Fixed) -->
-<div class="secret-login-trigger fixed bottom-6 right-6 w-12 h-12 rounded-full flex items-center justify-center cursor-pointer z-50" onclick="SecurityManager.showThreeKeyLogin()" title="Admin Access">
-    <i class="fas fa-lock text-white"></i>
-</div>
-
-<!-- Toast Container -->
-<div id="toastContainer" class="fixed bottom-6 right-6 z-[9999] space-y-2"></div>
-
-<!-- Three-Key Authentication Modal -->
-<div id="threeKeyModal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000] hidden">
-    <div class="modal-content bg-white rounded-2xl p-8 max-w-md w-full mx-4">
-        <div class="flex justify-between items-center mb-6">
-            <h2 class="text-2xl font-bold gradient-text">Secure Admin Access</h2>
-            <button onclick="SecurityManager.closeThreeKeyModal()" class="text-gray-400 hover:text-gray-600 transition">
-                <i class="fas fa-times text-xl"></i>
-            </button>
-        </div>
-        
-        <div class="three-key-login text-center">
-            <p class="text-gray-600 mb-6">Enter the 3-digit access code</p>
-            
-            <div class="flex justify-center space-x-4 mb-8">
-                <div id="key1" class="key-digit w-16 h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center text-2xl font-bold cursor-pointer hover:border-blue-500 transition" onclick="SecurityManager.selectKey(1)">_</div>
-                <div id="key2" class="key-digit w-16 h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center text-2xl font-bold cursor-pointer hover:border-blue-500 transition" onclick="SecurityManager.selectKey(2)">_</div>
-                <div id="key3" class="key-digit w-16 h-16 border-2 border-gray-200 rounded-xl flex items-center justify-center text-2xl font-bold cursor-pointer hover:border-blue-500 transition" onclick="SecurityManager.selectKey(3)">_</div>
-            </div>
-            
-            <div class="keypad grid grid-cols-3 gap-3 max-w-[240px] mx-auto">
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(1)">1</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(2)">2</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(3)">3</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(4)">4</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(5)">5</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(6)">6</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(7)">7</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(8)">8</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(9)">9</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.clearDigits()">C</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gray-50 rounded-xl hover:bg-gray-100 transition" onclick="SecurityManager.enterDigit(0)">0</button>
-                <button class="keypad-btn p-4 text-lg font-semibold bg-gradient-primary text-white rounded-xl hover:opacity-90 transition" onclick="SecurityManager.submitThreeKeyCode()">↵</button>
-            </div>
-            
-            <div id="keyError" class="text-red-500 text-sm mt-4 hidden">Invalid code. Please try again.</div>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="loading-spinner mx-auto"></div>
+            <p class="mt-4 text-gray-700 font-medium">Loading DCC Legal Chambers Banking Portal</p>
         </div>
     </div>
-</div>
 
-<!-- Admin Dashboard -->
-<div id="adminDashboard" class="modal fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-[1000] hidden">
-    <div class="bg-white w-full max-w-6xl h-[90vh] rounded-2xl overflow-hidden">
-        <div class="flex h-full">
-            <!-- Sidebar -->
-            <div class="w-64 bg-gradient-primary text-white p-6 flex flex-col">
-                <div class="mb-8">
-                    <h2 class="text-xl font-bold">PrimeHomesEU</h2>
-                    <p class="text-sm text-blue-200 mt-1">Administrator</p>
-                </div>
-                
-                <!-- Sync Status -->
-                <div id="globalSyncStatus" class="mb-6 p-3 bg-white bg-opacity-10 rounded-lg">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-blue-200">Sync Status:</span>
-                        <span id="syncStatusBadge" class="px-2 py-1 rounded-full text-xs font-semibold bg-green-500 bg-opacity-20 text-green-300">
-                            <i class="fas fa-check-circle mr-1"></i>Connected
-                        </span>
+    <!-- Processing Overlay -->
+    <div id="processing-overlay" class="processing-overlay">
+        <div class="bg-white rounded-lg p-8 text-center max-w-sm">
+            <div class="loading-spinner mx-auto mb-4"></div>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Processing Transaction</h3>
+            <p class="text-sm text-gray-500" id="processing-message">Please wait...</p>
+        </div>
+    </div>
+
+    <!-- Login Page (unchanged per requirement) -->
+    <div id="login-page" class="min-h-screen flex items-center justify-center corporate-gradient p-4">
+        <div class="w-full max-w-md">
+            <div class="rounded-2xl shadow-2xl overflow-hidden" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
+                <div class="p-8">
+                    <div class="text-center mb-8">
+                        <div class="text-4xl font-bold text-white mb-2">Prame Trust</div>
+                        <p class="text-blue-100">Business Banking</p>
+                        <h1 class="text-xl font-bold text-white mt-4">Secure Corporate Access</h1>
                     </div>
-                    <div id="lastSyncTime" class="text-xs text-blue-300 mt-1">Last sync: Just now</div>
-                </div>
-                
-                <nav class="space-y-2 flex-1">
-                    <button onclick="AdminUI.showSection('dashboard')" class="w-full text-left py-3 px-4 bg-white bg-opacity-10 hover:bg-opacity-20 rounded-lg transition flex items-center">
-                        <i class="fas fa-tachometer-alt mr-3"></i> Dashboard
-                    </button>
-                    <button onclick="AdminUI.showSection('properties')" class="w-full text-left py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition flex items-center">
-                        <i class="fas fa-home mr-3"></i> Properties
-                    </button>
-                    <button onclick="AdminUI.showSection('sync')" class="w-full text-left py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition flex items-center">
-                        <i class="fas fa-sync mr-3"></i> Sync Settings
-                    </button>
-                    <button onclick="AdminUI.showSection('settings')" class="w-full text-left py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition flex items-center">
-                        <i class="fas fa-cog mr-3"></i> Settings
-                    </button>
-                    <button onclick="AdminUI.showSection('security')" class="w-full text-left py-3 px-4 hover:bg-white hover:bg-opacity-10 rounded-lg transition flex items-center">
-                        <i class="fas fa-shield-alt mr-3"></i> Security
-                    </button>
-                </nav>
-                
-                <button onclick="SecurityManager.logoutAdmin()" class="mt-6 w-full bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg transition flex items-center justify-center">
-                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
-                </button>
-            </div>
-            
-            <!-- Main Content -->
-            <div class="flex-1 bg-gray-50 overflow-y-auto p-8" id="adminContent">
-                <!-- Content loaded dynamically -->
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Navigation -->
-<nav class="bg-white bg-opacity-90 backdrop-blur-md shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto px-4">
-        <div class="flex justify-between items-center py-4">
-            <div class="flex items-center">
-                <a href="#home" class="text-2xl font-bold">
-                    <span class="gradient-text">Prime</span><span class="text-gray-900">Homes</span><span class="text-sm font-normal text-gray-500 ml-1">EU</span>
-                </a>
-            </div>
-            
-            <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center space-x-8">
-                <a href="#home" class="nav-link text-gray-700 font-medium hover:text-blue-600">Home</a>
-                <a href="#properties" class="nav-link text-gray-700 font-medium hover:text-blue-600">Properties</a>
-                <a href="#agent" class="nav-link text-gray-700 font-medium hover:text-blue-600">Agent</a>
-                <a href="#about" class="nav-link text-gray-700 font-medium hover:text-blue-600">About</a>
-                <a href="#contact" class="nav-link text-gray-700 font-medium hover:text-blue-600">Contact</a>
-                <!--   <button class="bg-gradient-primary text-white px-4 py-2 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                 <i class="fas fa-user mr-2"></i>Sign In
-                </button> -->
-            </div>
-            
-            <!-- Mobile Menu Button -->
-            <div class="md:hidden">
-                <button id="mobile-menu-button" class="text-gray-600 focus:outline-none">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-            </div>
-        </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="mobile-menu md:hidden">
-            <div class="flex flex-col space-y-3 pb-4">
-                <a href="#home" class="text-gray-700 font-medium hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">Home</a>
-                <a href="#properties" class="text-gray-700 font-medium hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">Properties</a>
-                <a href="#agent" class="text-gray-700 font-medium hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">Agent</a>
-                <a href="#about" class="text-gray-700 font-medium hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">About</a>
-                <a href="#contact" class="text-gray-700 font-medium hover:text-blue-600 py-2 px-4 rounded-lg hover:bg-gray-50">Contact</a>
-              <!--  <button class="bg-gradient-primary text-white px-4 py-2 rounded-lg">
-                    <i class="fas fa-user mr-2"></i>Sign In
-                </button> -->
-            </div>
-        </div>
-    </div>
-</nav>
-
-<!-- Hero Section -->
-<section id="home" class="hero-bg text-white min-h-screen flex items-center relative overflow-hidden">
-    <div class="container mx-auto px-4 relative z-10">
-        <div class="hero-content max-w-3xl" data-aos="fade-up" data-aos-duration="1000">
-            <div class="flex items-center mb-6">
-                <div class="flex -space-x-3 mr-4">
-                    <img src="https://randomuser.me/api/portraits/women/44.jpg" class="w-12 h-12 rounded-full border-2 border-white floating-badge" alt="Client">
-                    <img src="https://randomuser.me/api/portraits/men/36.jpg" class="w-12 h-12 rounded-full border-2 border-white floating-badge" style="animation-delay: 0.2s" alt="Client">
-                    <img src="https://randomuser.me/api/portraits/women/68.jpg" class="w-12 h-12 rounded-full border-2 border-white floating-badge" style="animation-delay: 0.4s" alt="Client">
-                    <div class="w-12 h-12 rounded-full bg-gradient-primary border-2 border-white flex items-center justify-center text-sm font-bold floating-badge" style="animation-delay: 0.6s">+50</div>
-                </div>
-                <div>
-                    <div class="flex text-yellow-400 text-lg">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-sm text-gray-200">Trusted by 50+ EU professionals</p>
-                </div>
-            </div>
-            
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                Find Your <span class="gradient-text">Perfect</span><br>EU Rental
-            </h1>
-            <p class="text-xl mb-8 text-gray-200 max-w-2xl">Discover premium rental properties across the EU and surrounding areas. Studios, apartments, and homes in the most desirable locations.</p>
-            
-            <!-- Quick Stats -->
-            <div class="grid grid-cols-3 gap-8 mb-10 max-w-md">
-                <div class="text-center">
-                    <div class="counter-number text-3xl font-bold gradient-text" data-target="18">18</div>
-                    <div class="text-sm text-gray-300">Properties</div>
-                </div>
-                <div class="text-center">
-                    <div class="counter-number text-3xl font-bold gradient-text" data-target="100">100</div>
-                    <div class="text-sm text-gray-300">Happy Tenants</div>
-                </div>
-                <div class="text-center">
-                    <div class="counter-number text-3xl font-bold gradient-text" data-target="24">24</div>
-                    <div class="text-sm text-gray-300">Hour Response</div>
-                </div>
-            </div>
-            
-            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <a href="#properties" class="bg-gradient-primary text-white px-8 py-4 rounded-lg font-medium transition transform hover:-translate-y-1 hover:shadow-2xl text-center">
-                    Browse Rentals
-                </a>
-                <a href="#contact" class="glass-card text-white px-8 py-4 rounded-lg font-medium transition transform hover:-translate-y-1 hover:shadow-2xl text-center">
-                    Contact Agent
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Trust Badges -->
-<section class="bg-white py-8 border-b" data-aos="fade-up">
-    <div class="container mx-auto px-4">
-        <div class="flex flex-wrap justify-center items-center gap-8">
-            <div class="flex items-center text-gray-600 hover:text-blue-600 transition">
-                <i class="fas fa-euro-sign text-2xl mr-2"></i>
-                <span class="font-semibold">Fair EU Pricing</span>
-            </div>
-            <div class="flex items-center text-gray-600 hover:text-blue-600 transition">
-                <i class="fas fa-shield-alt text-2xl mr-2"></i>
-                <span class="font-semibold">Secure Contracts</span>
-            </div>
-            <div class="flex items-center text-gray-600 hover:text-blue-600 transition">
-                <i class="fas fa-clock text-2xl mr-2"></i>
-                <span class="font-semibold">24/7 Support</span>
-            </div>
-            <div class="flex items-center text-gray-600 hover:text-blue-600 transition">
-                <i class="fas fa-language text-2xl mr-2"></i>
-                <span class="font-semibold">Multilingual Staff</span>
-            </div>
-            <div class="flex items-center text-gray-600 hover:text-blue-600 transition">
-                <i class="fas fa-check-circle text-2xl mr-2"></i>
-                <span class="font-semibold">Verified Listings</span>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Quick Testimonials Carousel -->
-<section class="bg-gray-50 py-8">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center justify-between mb-6">
-            <h3 class="text-lg font-semibold text-gray-700">What our tenants say</h3>
-            <div class="flex space-x-2">
-                <button onclick="TestimonialCarousel.prev()" class="w-10 h-10 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition transform hover:-translate-y-0.5">
-                    <i class="fas fa-chevron-left text-gray-600"></i>
-                </button>
-                <button onclick="TestimonialCarousel.next()" class="w-10 h-10 rounded-full bg-white hover:bg-gray-100 flex items-center justify-center shadow-md transition transform hover:-translate-y-0.5">
-                    <i class="fas fa-chevron-right text-gray-600"></i>
-                </button>
-            </div>
-        </div>
-        
-        <div id="quickTestimonials" class="flex overflow-hidden space-x-4 pb-4">
-            <!-- Will be populated by JavaScript -->
-        </div>
-    </div>
-</section>
-
-<!-- Search Section -->
-<section class="px-4 -mt-10 relative z-20">
-    <div class="container mx-auto max-w-4xl">
-        <div class="search-section bg-white rounded-2xl shadow-2xl p-8" data-aos="fade-up" data-aos-delay="200">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Search Eu Rentals</h2>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                    <select id="searchLocation" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        <option value="">Any Location</option>
-                        <option value="Brussels">Brussels</option>
-                        <option value="Ixelles">Ixelles</option>
-                        <option value="Etterbeek">Etterbeek</option>
-                        <option value="Uccle">Uccle</option>
-                        <option value="Saint-Gilles">Saint-Gilles</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Apartment Type</label>
-                    <select id="searchType" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        <option value="">Any Type</option>
-                        <option value="studio">Studio</option>
-                        <option value="1-bedroom">1 Bedroom</option>
-                        <option value="2-bedroom">2 Bedrooms</option>
-                        <option value="3-bedroom">3+ Bedrooms</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Monthly Rent</label>
-                    <select id="searchPrice" class="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                        <option value="">Any Price</option>
-                        <option value="0-800">Under €800</option>
-                        <option value="800-1200">€800 - €1,200</option>
-                        <option value="1200-1600">€1,200 - €1,600</option>
-                        <option value="1600-2000">€1,600 - €2,000</option>
-                        <option value="2000-3000">€2,000 - €3,000</option>
-                    </select>
-                </div>
-                <div class="flex items-end">
-                    <button onclick="PropertyManager.searchProperties()" class="w-full bg-gradient-primary text-white py-3 px-4 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                        <i class="fas fa-search mr-2"></i>Search
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Properties Section -->
-<section id="properties" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4 playfair">Available Rentals in Eu</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">Explore our curated selection of premium rental properties across Eu.</p>
-        </div>
-        
-        <!-- Property Filters -->
-        <div id="filterContainer" class="flex flex-wrap justify-center gap-3 mb-10" data-aos="fade-up" data-aos-delay="100"></div>
-        
-        <!-- Properties Grid -->
-        <div id="propertiesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
-        
-        <div class="text-center mt-12" data-aos="fade-up">
-            <button onclick="PropertyManager.loadMoreProperties()" class="bg-white hover:bg-gray-100 text-gray-800 border-2 border-gray-300 px-8 py-3 rounded-lg font-medium transition transform hover:-translate-y-0.5 hover:shadow-lg">
-                Load More Properties
-            </button>
-        </div>
-    </div>
-</section>
-
-<!-- Agent Section -->
-<section id="agent" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12" data-aos="fade-up">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4 playfair">Your Dedicated Agent</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">Meet your personal property expert for Brussels rentals.</p>
-        </div>
-        
-        <div id="agentGrid" class="max-w-md mx-auto" data-aos="fade-up" data-aos-delay="200"></div>
-    </div>
-</section>
-
-<!-- Why Choose Us -->
-<section id="about" class="py-20 bg-gray-50">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4 playfair">Why Choose PrimeHomesEU</h2>
-            <p class="text-gray-600 max-w-2xl mx-auto">Your trusted partner for Eu rental properties.</p>
-        </div>
-        
-        <!-- Testimonials Section -->
-        <div id="testimonialsGrid" class="testimonial-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
-    </div>
-</section>
-
-<!-- Contact Section -->
-<section id="contact" class="py-20 bg-white">
-    <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto">
-            <div class="text-center mb-12" data-aos="fade-up">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4 playfair">Contact Your Agent</h2>
-                <p class="text-gray-600">Get in touch with Hans Cristiano for inquiries or to schedule a viewing.</p>
-            </div>
-            
-            <div class="bg-gray-50 rounded-2xl p-8 shadow-xl" data-aos="fade-up" data-aos-delay="200">
-                <form id="contactForm" onsubmit="UIHelper.handleContactSubmit(event)" class="space-y-6">
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Full Name</label>
-                        <input type="text" id="contactName" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Email Address</label>
-                        <input type="email" id="contactEmail" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
-                        <input type="tel" id="contactPhone" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition">
-                    </div>
-                    <div>
-                        <label class="block text-gray-700 text-sm font-bold mb-2">Message</label>
-                        <textarea id="contactMessage" rows="4" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-gradient-primary text-white font-bold py-3 px-4 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                        Send Message to Hans Cristiano
-                    </button>
-                </form>
-            </div>
-            
-            <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="flex items-center justify-center text-gray-600 p-4 bg-gray-50 rounded-lg hover:shadow-md transition">
-                    <i class="fas fa-phone-alt text-blue-600 mr-3"></i>
-                    <span>+44 7351 491226</span>
-                </div>
-                <div class="flex items-center justify-center text-gray-600 p-4 bg-gray-50 rounded-lg hover:shadow-md transition">
-                    <i class="fas fa-envelope text-blue-600 mr-3"></i>
-                    <span>Hanscristiano0000@gmail.com</span>
-                </div>
-                <div class="flex items-center justify-center text-gray-600 p-4 bg-gray-50 rounded-lg hover:shadow-md transition">
-                    <i class="fas fa-map-marker-alt text-blue-600 mr-3"></i>
-                   <span>Eu</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="py-20 bg-gradient-primary text-white">
-    <div class="container mx-auto px-4 text-center" data-aos="fade-up">
-        <h2 class="text-4xl font-bold mb-4 playfair">Ready to Find Your Eu Home?</h2>
-        <p class="text-xl mb-8 max-w-2xl mx-auto opacity-90">Let Hans Cristiano guide you through the process and find the perfect rental for your needs.</p>
-        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <a href="#contact" class="bg-white text-blue-900 px-8 py-4 rounded-lg font-medium transition transform hover:-translate-y-1 hover:shadow-2xl">
-                Contact Hans Cristiano
-            </a>
-            <a href="#properties" class="border-2 border-white text-white px-8 py-4 rounded-lg font-medium transition transform hover:-translate-y-1 hover:bg-white hover:text-blue-900 hover:shadow-2xl">
-                Browse Rentals
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-gray-900 text-white pt-16 pb-8">
-    <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-            <div>
-                <h3 class="text-2xl font-bold mb-4">
-                    <span class="gradient-text">Prime</span>HomesEU
-                </h3>
-                <p class="text-gray-400 mb-4">Your trusted partner for premium rental properties in Eu</p>
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:-translate-y-1"><i class="fab fa-facebook-f text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:-translate-y-1"><i class="fab fa-twitter text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:-translate-y-1"><i class="fab fa-instagram text-xl"></i></a>
-                    <a href="#" class="text-gray-400 hover:text-white transition transform hover:-translate-y-1"><i class="fab fa-linkedin-in text-xl"></i></a>
-                </div>
-            </div>
-            
-            <div>
-                <h4 class="font-bold text-lg mb-4">Quick Links</h4>
-                <ul class="space-y-2">
-                    <li><a href="#home" class="text-gray-400 hover:text-white transition">Home</a></li>
-                    <li><a href="#properties" class="text-gray-400 hover:text-white transition">Properties</a></li>
-                    <li><a href="#agent" class="text-gray-400 hover:text-white transition">Agent</a></li>
-                    <li><a href="#about" class="text-gray-400 hover:text-white transition">About Us</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="font-bold text-lg mb-4">Services</h4>
-                <ul class="space-y-2">
-                    <li><a href="" class="text-gray-400 hover:text-white transition">Rental Search</a></li>
-                    <li><a href="" class="text-gray-400 hover:text-white transition">Property Management</a></li>
-                    <li><a href="" class="text-gray-400 hover:text-white transition">Relocation Support</a></li>
-                    <li><a href="" class="text-gray-400 hover:text-white transition">Corporate Housing</a></li>
-                </ul>
-            </div>
-            
-            <div>
-                <h4 class="font-bold text-lg mb-4">Contact Info</h4>
-                <ul class="space-y-2 text-gray-400">
-                   <!-- <li class="flex items-start">
-                        <i class="fas fa-map-marker-alt mt-1 mr-3"></i>
-                        <span>Avenue Louise 123, 1000 Brussels, Belgium</span>
-                    </li> -->
-                    <li class="flex items-center">
-                        <i class="fas fa-phone-alt mr-3"></i>
-                        <span>+44 7351 491226</span>
-                    </li>
-                  <!--  <li class="flex items-center">
-                        <i class="fas fa-envelope mr-3"></i>
-                        <span>info@primehomes.eu</span>
-                    </li>-->
-                </ul>
-            </div>
-        </div>
-        
-        <div class="border-t border-gray-800 pt-6 text-center">
-            <p class="text-gray-400 text-sm">© 2026 PrimeHomesEU. All rights reserved. Made with <i class="fas fa-heart text-red-500"></i> in Eu</p>
-        </div>
-    </div>
-</footer>
-
-<!-- Scripts -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-// Initialize AOS
-AOS.init({
-    duration: 800,
-    once: true,
-    offset: 100
-});
-
-// ==================== COMPLETE PROPERTIES DATASET ====================
-const COMPLETE_PROPERTIES = [
-    {
-        id: 1,
-        title: "Luxury Studio - European Quarter",
-        location: "Brussels",
-        price: 950,
-        type: "studio",
-        featured: true,
-        bedrooms: 0,
-        bathrooms: 1,
-        sqm: 35,
-        description: "Modern studio in the heart of the European Quarter. Perfect for professionals, fully furnished with high-end finishes, and walking distance to EU institutions.",
-        image: "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=800&q=80",
-        occupied: false,
-        available: "Immediate",
-        images: [
-            "https://images.unsplash.com/photo-1536376072261-38c75010e6c9?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?auto=format&fit=crop&w=800&q=80",
-            ""
-        ]
-    },
-    {
-        id: 2,
-        title: "Charming 1-Bedroom - Ixelles",
-        location: "Ixelles",
-        price: 1200,
-        type: "1-bedroom",
-        featured: true,
-        bedrooms: 1,
-        bathrooms: 1,
-        sqm: 55,
-        description: "Bright apartment near Flagey, close to shops and public transport. Original features with modern comfort, including high ceilings and wooden floors.",
-        image: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
-        occupied: true,
-        available: "March 2025",
-        images: [
-            "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?auto=format&fit=crop&w=800&q=80",
-            "",
-            ""
-        ]
-    },
-    {
-        id: 3,
-        title: "Spacious 2-Bedroom - Uccle",
-        location: "Uccle",
-        price: 1650,
-        type: "2-bedroom",
-        featured: true,
-        bedrooms: 2,
-        bathrooms: 2,
-        sqm: 85,
-        description: "Elegant family apartment in residential Uccle, with private garden and parking. Quiet neighborhood close to international schools and parks.",
-        image: "https://images.unsplash.com/photo-1560448204-603e4a14693b?auto=format&fit=crop&w=800&q=80",
-        occupied: true,
-        available: "April 2025",
-        images: [
-            "https://images.unsplash.com/photo-1560448204-603e4a14693b?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
-            ""
-        ]
-    },
-    {
-        id: 4,
-        title: "Modern Studio - Louise",
-        location: "Brussels",
-        price: 850,
-        type: "studio",
-        featured: false,
-        bedrooms: 0,
-        bathrooms: 1,
-        sqm: 30,
-        description: "Compact studio on Avenue Louise, ideal for students or young professionals. Recently renovated with modern appliances and great natural light.",
-        image: "",
-        occupied: false,
-        available: "Immediate",
-        images: ["", "", "", ""]
-    },
-    {
-        id: 5,
-        title: "1-Bedroom with Terrace - Etterbeek",
-        location: "Etterbeek",
-        price: 1100,
-        type: "1-bedroom",
-        featured: false,
-        bedrooms: 1,
-        bathrooms: 1,
-        sqm: 50,
-        description: "Cozy apartment with private terrace near the university, bright and quiet. Perfect for academics or professionals seeking outdoor space.",
-        image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
-        occupied: true,
-        available: "May 2025",
-        images: [
-            "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?auto=format&fit=crop&w=800&q=80",
-            "",
-            ""
-        ]
-    },
-    {
-        id: 6,
-        title: "2-Bedroom Art Nouveau - Saint-Gilles",
-        location: "Saint-Gilles",
-        price: 1450,
-        type: "2-bedroom",
-        featured: false,
-        bedrooms: 2,
-        bathrooms: 1,
-        sqm: 80,
-        description: "Stunning Art Nouveau apartment with high ceilings and original features. Located in a vibrant area with excellent restaurants and cafes.",
-        image: "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80",
-        occupied: false,
-        available: "Immediate",
-        images: [
-            "https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560185007-c5ca9d2c045d?auto=format&fit=crop&w=800&q=80",
-            ""
-        ]
-    },
-    {
-        id: 7,
-        title: "Student Studio - VUB/ULB",
-        location: "Ixelles",
-        price: 650,
-        type: "studio",
-        featured: false,
-        bedrooms: 0,
-        bathrooms: 1,
-        sqm: 25,
-        description: "Affordable studio near the universities, perfect for students. All bills included, secure building with bike storage.",
-        image: "",
-        occupied: true,
-        available: "September 2025",
-        images: ["", "", "", ""]
-    },
-    {
-        id: 8,
-        title: "Luxury 1-Bedroom - Sablon",
-        location: "Brussels",
-        price: 1400,
-        type: "1-bedroom",
-        featured: true,
-        bedrooms: 1,
-        bathrooms: 1,
-        sqm: 60,
-        description: "High-end apartment in the trendy Sablon area, designer furniture included. Walking distance to antique shops, chocolate shops, and the Royal Palace.",
-        image: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
-        occupied: false,
-        available: "Immediate",
-        images: [
-            "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560185007-c5ca9d2c045d?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?auto=format&fit=crop&w=800&q=80",
-            ""
-        ]
-    },
-    {
-        id: 9,
-        title: "3-Bedroom Family Home - Watermael",
-        location: "Watermael-Boitsfort",
-        price: 2200,
-        type: "3-bedroom",
-        featured: false,
-        bedrooms: 3,
-        bathrooms: 2,
-        sqm: 120,
-        description: "Spacious family house with garden, near the Forêt de Soignes. Perfect for families seeking nature while staying connected to the city.",
-        image: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-        occupied: true,
-        available: "June 2025",
-        images: [
-            "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560185007-c5ca9d2c045d?auto=format&fit=crop&w=800&q=80",
-            ""
-        ]
-    },
-    {
-        id: 10,
-        title: "Modern 2-Bedroom - Woluwe",
-        location: "Woluwe-Saint-Pierre",
-        price: 1550,
-        type: "2-bedroom",
-        featured: false,
-        bedrooms: 2,
-        bathrooms: 1,
-        sqm: 75,
-        description: "Contemporary apartment in a quiet residential area, with parking. Modern finishes, spacious living area, and close to shopping centers.",
-        image: "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
-        occupied: false,
-        available: "Immediate",
-        images: [
-            "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560185007-c5ca9d2c045d?auto=format&fit=crop&w=800&q=80",
-            "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?auto=format&fit=crop&w=800&q=80",
-            ""
-        ]
-    }
-];
-
-// ==================== COMPLETE TESTIMONIALS DATASET ====================
-const COMPLETE_TESTIMONIALS = [
-    {
-        id: 1,
-        name: "Dr. Sarah Jenkins",
-        role: "European Commission Official",
-        location: "Brussels",
-        image: "https://randomuser.me/api/portraits/women/44.jpg",
-        rating: 5,
-        text: "As someone relocating for work, I needed a stress-free experience. PrimeHomesEU handled everything - from airport pickup to utility setup. My furnished apartment in the European Quarter exceeded expectations.",
-        benefit: "Relocation Support",
-        date: "March 2024"
-    },
-    {
-        id: 2,
-        name: "Marco Rossi",
-        role: "EU Trainee",
-        location: "Ixelles",
-        image: "https://randomuser.me/api/portraits/men/41.jpg",
-        rating: 5,
-        text: "On a trainee budget, I thought finding a decent place was impossible. Hans found me an affordable studio near Flagey that's perfect. The transparent pricing and no hidden fees made all the difference.",
-        benefit: "Budget-Friendly",
-        date: "February 2024"
-    },
-    {
-        id: 3,
-        name: "Elena & Dimitri Volkov",
-        role: "Family Relocation",
-        location: "Uccle",
-        image: "https://randomuser.me/api/portraits/women/68.jpg",
-        rating: 5,
-        text: "Finding a family home near international schools seemed daunting. PrimeHomesEU showed us 5 properties in one day, and we fell in love with the third. The garden and quiet neighborhood are perfect for our children.",
-        benefit: "Family-Friendly",
-        date: "January 2024"
-    },
-    {
-        id: 4,
-        name: "James O'Brien",
-        role: "Journalist",
-        location: "Saint-Gilles",
-        image: "https://randomuser.me/api/portraits/men/52.jpg",
-        rating: 5,
-        text: "I've rented through agencies in 6 countries - PrimeHomesEU is by far the most professional. The Art Nouveau apartment they found me has original features AND modern amenities. Fast internet for work was a priority they understood.",
-        benefit: "Professional Service",
-        date: "March 2024"
-    },
-    {
-        id: 5,
-        name: "Dr. Amina Al-Farsi",
-        role: "WHO Consultant",
-        location: "Etterbeek",
-        image: "https://randomuser.me/api/portraits/women/63.jpg",
-        rating: 5,
-        text: "The virtual tour and detailed photos meant I could rent sight-unseen with confidence. When I arrived, the apartment was exactly as shown - spotless and well-maintained. Hans even arranged a welcome package.",
-        benefit: "Remote Relocation",
-        date: "February 2024"
-    },
-    {
-        id: 6,
-        name: "Thomas Weber",
-        role: "Corporate Executive",
-        location: "Woluwe",
-        image: "https://randomuser.me/api/portraits/men/42.jpg",
-        rating: 5,
-        text: "My company needed 4 apartments for incoming staff. PrimeHomesEU coordinated everything seamlessly - all properties were ready, with keys waiting. The 24/7 support team handled every minor issue immediately.",
-        benefit: "Corporate Housing",
-        date: "December 2023"
-    }
-];
-
-// ==================== DATA STORE ====================
-const DataStore = {
-    properties: [],
-    agent: null,
-    testimonials: [],
-    settings: {},
-    
-    init: function() {
-        this.loadProperties();
-        this.loadAgent();
-        this.loadTestimonials();
-        this.loadSettings();
-    },
-    
-    loadProperties: function() {
-        this.properties = COMPLETE_PROPERTIES.map(p => ({
-            ...p,
-            images: p.images || (p.image ? [p.image, "", "", ""] : ["", "", "", ""])
-        }));
-        this.saveProperties();
-    },
-    
-    loadAgent: function() {
-        this.agent = {
-            id: 1,
-            name: "Hans Cristiano",
-            role: "Senior Rental Specialist",
-            location: "Brussels",
-            experience: "12 years",
-            image: "https://randomuser.me/api/portraits/men/32.jpg",
-            phone: "+44 7351 491226",
-            email: "Hanscristiano0000@gmail.com",
-            languages: ["English", "French", "Dutch", "German"],
-            specialties: ["Luxury Rentals", "EU Relocation", "Corporate Housing"]
-        };
-    },
-    
-    loadTestimonials: function() {
-        this.testimonials = COMPLETE_TESTIMONIALS;
-    },
-    
-    loadSettings: function() {
-        const saved = localStorage.getItem('settings');
-        if (saved) {
-            this.settings = JSON.parse(saved);
-        } else {
-            this.settings = {
-                siteTitle: "PrimeHomesEU",
-                tagline: "Premium Rentals in Brussels & Belgium",
-                contactEmail: "Hanscristiano0000@gmail.com",
-                contactPhone: "+44 7351 491226",
-                address: "Avenue Louise 123, 1000 Brussels, Belgium",
-                syncInterval: 30,
-                autoSync: true
-            };
-        }
-    },
-    
-    saveProperties: function() {
-        localStorage.setItem('properties', JSON.stringify(this.properties));
-    },
-    
-    saveSettings: function() {
-        localStorage.setItem('settings', JSON.stringify(this.settings));
-    },
-    
-    getProperty: function(id) {
-        return this.properties.find(p => p.id === id);
-    },
-    
-    updateProperty: function(id, updates) {
-        const index = this.properties.findIndex(p => p.id === id);
-        if (index !== -1) {
-            this.properties[index] = { ...this.properties[index], ...updates };
-            this.saveProperties();
-            return this.properties[index];
-        }
-        return null;
-    },
-    
-    addProperty: function(property) {
-        property.id = Math.max(...this.properties.map(p => p.id), 0) + 1;
-        property.images = property.images || ["", "", "", ""];
-        this.properties.push(property);
-        this.saveProperties();
-        return property;
-    },
-    
-    deleteProperty: function(id) {
-        this.properties = this.properties.filter(p => p.id !== id);
-        this.saveProperties();
-    }
-};
-
-// ==================== SYNC MANAGER ====================
-const SyncManager = {
-    syncQueue: [],
-    isSyncing: false,
-    syncInterval: null,
-    lastSyncTime: null,
-    syncStatus: 'success',
-    
-    init: function() {
-        this.startAutoSync();
-        this.loadSyncQueue();
-        this.updateUI();
-    },
-    
-    startAutoSync: function() {
-        this.syncInterval = setInterval(() => {
-            if (this.syncQueue.length > 0 && navigator.onLine) {
-                this.processSyncQueue();
-            }
-        }, 30000);
-    },
-    
-    updateUI: function() {
-        this.updateLastSyncTime();
-    },
-    
-    updateSyncStatus: function(status, message) {
-        this.syncStatus = status;
-        
-        const badge = document.getElementById('syncStatusBadge');
-        if (badge) {
-            badge.className = `px-2 py-1 rounded-full text-xs font-semibold ${status === 'success' ? 'bg-green-500 bg-opacity-20 text-green-300' : status === 'pending' ? 'bg-yellow-500 bg-opacity-20 text-yellow-300' : 'bg-red-500 bg-opacity-20 text-red-300'}`;
-            badge.innerHTML = `<i class="fas fa-${status === 'success' ? 'check-circle' : status === 'pending' ? 'sync-alt fa-spin' : 'exclamation-circle'} mr-1"></i>${message}`;
-        }
-    },
-    
-    updateLastSyncTime: function() {
-        const lastSyncEl = document.getElementById('lastSyncTime');
-        if (lastSyncEl && this.lastSyncTime) {
-            lastSyncEl.textContent = `Last sync: ${this.getTimeAgo(this.lastSyncTime)}`;
-        }
-    },
-    
-    getTimeAgo: function(date) {
-        const seconds = Math.floor((new Date() - date) / 1000);
-        if (seconds < 60) return 'Just now';
-        if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
-        if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
-        return `${Math.floor(seconds / 86400)} days ago`;
-    },
-    
-    loadSyncQueue: function() {
-        const saved = localStorage.getItem('sync_queue');
-        if (saved) {
-            this.syncQueue = JSON.parse(saved);
-            if (this.syncQueue.length > 0) {
-                this.updateSyncStatus('pending', `${this.syncQueue.length} pending`);
-            }
-        }
-    },
-    
-    queueChange: function(type, data, propertyId = null) {
-        const change = {
-            id: Date.now() + Math.random().toString(36).substr(2, 9),
-            type: type,
-            data: data,
-            propertyId: propertyId,
-            timestamp: new Date().toISOString(),
-            retryCount: 0
-        };
-        
-        this.syncQueue.push(change);
-        localStorage.setItem('sync_queue', JSON.stringify(this.syncQueue));
-        this.updateSyncStatus('pending', 'Pending sync...');
-        
-        UIHelper.showToast('Changes queued for sync', 'info');
-    },
-    
-    processSyncQueue: async function() {
-        if (this.isSyncing || this.syncQueue.length === 0 || !navigator.onLine) {
-            return;
-        }
-        
-        this.isSyncing = true;
-        this.updateSyncStatus('pending', 'Syncing...');
-        
-        const queue = [...this.syncQueue];
-        const failedItems = [];
-        
-        for (const item of queue) {
-            try {
-                await this.processSyncItem(item);
-                this.syncQueue = this.syncQueue.filter(i => i.id !== item.id);
-            } catch (error) {
-                item.retryCount++;
-                if (item.retryCount < 3) {
-                    failedItems.push(item);
-                }
-            }
-        }
-        
-        this.syncQueue = [...failedItems];
-        localStorage.setItem('sync_queue', JSON.stringify(this.syncQueue));
-        
-        this.isSyncing = false;
-        this.lastSyncTime = new Date();
-        
-        if (this.syncQueue.length === 0) {
-            this.updateSyncStatus('success', 'Connected');
-            UIHelper.showToast('All changes synchronized', 'success');
-        } else {
-            this.updateSyncStatus('error', `${this.syncQueue.length} items pending`);
-        }
-        
-        this.updateLastSyncTime();
-    },
-    
-    processSyncItem: function(item) {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                try {
-                    if (item.type === 'property' && item.propertyId) {
-                        DataStore.updateProperty(item.propertyId, item.data);
-                    } else if (item.type === 'settings') {
-                        DataStore.settings = { ...DataStore.settings, ...item.data };
-                        DataStore.saveSettings();
-                    }
-                    resolve();
-                } catch (error) {
-                    reject(error);
-                }
-            }, 500);
-        });
-    },
-    
-    forceSync: function() {
-        this.processSyncQueue();
-    },
-    
-    clearQueue: function() {
-        this.syncQueue = [];
-        localStorage.setItem('sync_queue', JSON.stringify(this.syncQueue));
-        this.updateSyncStatus('success', 'Connected');
-        UIHelper.showToast('Sync queue cleared', 'info');
-    }
-};
-
-// ==================== SECURITY MANAGER ====================
-const SecurityManager = {
-    ADMIN_ACCESS_CODE: ['1', '2', '3'],
-    enteredDigits: ['', '', ''],
-    currentKeyIndex: 0,
-    
-    showThreeKeyLogin: function() {
-        document.getElementById('threeKeyModal').classList.remove('hidden');
-        this.resetKeypad();
-    },
-    
-    closeThreeKeyModal: function() {
-        document.getElementById('threeKeyModal').classList.add('hidden');
-        this.resetKeypad();
-    },
-    
-    selectKey: function(index) {
-        this.currentKeyIndex = index - 1;
-        this.updateKeyDisplay();
-    },
-    
-    enterDigit: function(digit) {
-        if (this.currentKeyIndex < 3) {
-            this.enteredDigits[this.currentKeyIndex] = digit.toString();
-            document.getElementById(`key${this.currentKeyIndex + 1}`).textContent = '●';
-            
-            if (this.currentKeyIndex < 2) {
-                this.currentKeyIndex++;
-            }
-            this.updateKeyDisplay();
-        }
-    },
-    
-    clearDigits: function() {
-        this.resetKeypad();
-    },
-    
-    resetKeypad: function() {
-        this.enteredDigits = ['', '', ''];
-        this.currentKeyIndex = 0;
-        for (let i = 1; i <= 3; i++) {
-            document.getElementById(`key${i}`).textContent = '_';
-            document.getElementById(`key${i}`).classList.remove('selected', 'border-blue-500', 'shadow-lg');
-        }
-        document.getElementById('keyError').classList.add('hidden');
-    },
-    
-    updateKeyDisplay: function() {
-        for (let i = 0; i < 3; i++) {
-            const key = document.getElementById(`key${i + 1}`);
-            if (i === this.currentKeyIndex && this.enteredDigits[i] === '') {
-                key.classList.add('selected', 'border-blue-500', 'shadow-lg');
-            } else {
-                key.classList.remove('selected', 'border-blue-500', 'shadow-lg');
-            }
-        }
-    },
-    
-    submitThreeKeyCode: function() {
-        if (this.enteredDigits.includes('')) {
-            UIHelper.showToast('Please enter all 3 digits', 'warning');
-            return;
-        }
-        
-        if (this.enteredDigits[0] === this.ADMIN_ACCESS_CODE[0] && 
-            this.enteredDigits[1] === this.ADMIN_ACCESS_CODE[1] && 
-            this.enteredDigits[2] === this.ADMIN_ACCESS_CODE[2]) {
-            
-            this.closeThreeKeyModal();
-            document.getElementById('adminDashboard').classList.remove('hidden');
-            AdminUI.showSection('dashboard');
-            UIHelper.showToast('Admin access granted', 'success');
-        } else {
-            document.getElementById('keyError').classList.remove('hidden');
-            this.resetKeypad();
-        }
-    },
-    
-    logoutAdmin: function() {
-        document.getElementById('adminDashboard').classList.add('hidden');
-        UIHelper.showToast('Logged out successfully', 'info');
-    },
-    
-    changeAccessCode: function(event) {
-        event.preventDefault();
-        
-        const currentCode = document.getElementById('currentCode').value;
-        const newCode = document.getElementById('newCode').value;
-        const confirmCode = document.getElementById('confirmCode').value;
-        
-        if (currentCode !== this.ADMIN_ACCESS_CODE.join('')) {
-            UIHelper.showToast('Current code is incorrect', 'error');
-            return;
-        }
-        
-        if (newCode.length !== 3 || !/^\d+$/.test(newCode)) {
-            UIHelper.showToast('New code must be 3 digits', 'error');
-            return;
-        }
-        
-        if (newCode !== confirmCode) {
-            UIHelper.showToast('New codes do not match', 'error');
-            return;
-        }
-        
-        for (let i = 0; i < 3; i++) {
-            this.ADMIN_ACCESS_CODE[i] = newCode[i];
-        }
-        
-        document.getElementById('currentCode').value = '';
-        document.getElementById('newCode').value = '';
-        document.getElementById('confirmCode').value = '';
-        
-        UIHelper.showToast('Access code updated successfully', 'success');
-    }
-};
-
-// ==================== IMAGE MANAGER ====================
-const ImageManager = {
-    maxImages: 4,
-    
-    initSlideshow: function(propertyId) {
-        const property = DataStore.getProperty(propertyId);
-        if (!property) return '<div class="text-center p-4">Property not found</div>';
-        
-        const images = property.images ? property.images.filter(u => u) : [];
-        if (images.length === 0) {
-            images.push(property.image || 'https://via.placeholder.com/800x600?text=No+Image');
-        }
-        
-        return `
-            <div class="slideshow-container relative" data-property-id="${propertyId}">
-                <div class="main-image-container relative h-[400px] bg-gray-100">
-                    <img src="${images[0]}" alt="${property.title}" id="slideshow-main-${propertyId}" class="w-full h-full object-cover">
-                    
-                    <button class="slideshow-nav prev absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full flex items-center justify-center transition" onclick="ImageManager.navigate(${propertyId}, 'prev')">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    
-                    <button class="slideshow-nav next absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-black bg-opacity-50 hover:bg-opacity-75 text-white rounded-full flex items-center justify-center transition" onclick="ImageManager.navigate(${propertyId}, 'next')">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    
-                    <div class="image-counter absolute bottom-4 right-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded-full text-sm">
-                        <span id="current-image-${propertyId}">1</span> / <span id="total-images-${propertyId}">${images.length}</span>
-                    </div>
-                </div>
-                
-                <div class="thumbnail-grid grid grid-cols-5 gap-2 mt-2" id="thumbnail-grid-${propertyId}">
-                    ${images.map((img, index) => `
-                        <div class="thumbnail cursor-pointer rounded-lg overflow-hidden border-2 ${index === 0 ? 'border-blue-500 active' : 'border-transparent'} transition hover:opacity-90" onclick="ImageManager.setMainImage(${propertyId}, ${index})">
-                            <img src="${img}" alt="Thumbnail ${index + 1}" class="w-full h-20 object-cover">
+                    <form id="login-form" class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-medium text-blue-100">Business ID</label>
+                            <input type="text" id="username" required 
+                                   class="mt-1 block w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 border border-blue-300 focus:ring-2 focus:ring-blue-500 font-mono"
+                                   placeholder="Enter your Business ID">
                         </div>
-                    `).join('')}
+                        <div>
+                            <label class="block text-sm font-medium text-blue-100">Password</label>
+                            <input type="password" id="password" required 
+                                   class="mt-1 block w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 border border-blue-300 focus:ring-2 focus:ring-blue-500 font-mono"
+                                   placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="w-full flex justify-center items-center py-3 px-4 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Sign In
+                        </button>
+                    </form>
+                    <div class="mt-8 pt-6 border-t border-blue-400 border-opacity-30">
+                        <div class="flex justify-center space-x-4">
+                            <span class="text-xs text-blue-200"><i class="fas fa-shield-alt mr-1"></i> FDIC Insured</span>
+                            <span class="text-xs text-blue-200"><i class="fas fa-lock mr-1"></i> 256-bit Encryption</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-        `;
-    },
-    
-    navigate: function(propertyId, direction) {
-        const currentSpan = document.getElementById(`current-image-${propertyId}`);
-        const totalSpan = document.getElementById(`total-images-${propertyId}`);
-        const currentIndex = parseInt(currentSpan.textContent) - 1;
-        const total = parseInt(totalSpan.textContent);
-        
-        let newIndex;
-        if (direction === 'next') {
-            newIndex = (currentIndex + 1) % total;
-        } else {
-            newIndex = (currentIndex - 1 + total) % total;
-        }
-        
-        this.setMainImage(propertyId, newIndex);
-    },
-    
-    setMainImage: function(propertyId, index) {
-        const property = DataStore.getProperty(propertyId);
-        const images = property.images ? property.images.filter(u => u) : [];
-        const mainImage = document.getElementById(`slideshow-main-${propertyId}`);
-        const currentSpan = document.getElementById(`current-image-${propertyId}`);
-        
-        if (mainImage && images[index]) {
-            mainImage.src = images[index];
-            currentSpan.textContent = index + 1;
-            
-            document.querySelectorAll(`#thumbnail-grid-${propertyId} .thumbnail`).forEach((thumb, i) => {
-                if (i === index) {
-                    thumb.classList.add('border-blue-500', 'active');
-                } else {
-                    thumb.classList.remove('border-blue-500', 'active');
-                }
-            });
-        }
-    },
-    
-    renderImageUrlInputs: function(propertyId, existingUrls = []) {
-        const urls = existingUrls.slice(0, this.maxImages);
-        
-        return `
-            <div class="image-url-manager" data-property-id="${propertyId}">
-                <div class="mb-4 flex items-center justify-between">
-                    <span class="font-medium">Images:</span>
-                    <span class="text-blue-600 font-semibold">${urls.filter(u => u).length}</span> / ${this.maxImages}
-                </div>
-                
-                <div class="space-y-3">
-                    ${Array(this.maxImages).fill().map((_, index) => `
-                        <div class="image-url-input">
-                            <label class="block text-sm font-medium text-gray-700 mb-1">
-                                Image ${index + 1} ${index === 0 ? '(Primary)' : ''}
-                            </label>
-                            <div class="flex gap-2">
-                                <input type="url" 
-                                       id="image-url-${propertyId}-${index}"
-                                       class="form-input flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                                       placeholder="https://example.com/image.jpg"
-                                       value="${urls[index] || ''}"
-                                       onchange="ImageManager.updatePropertyImage(${propertyId}, ${index}, this.value)">
-                                <button type="button" 
-                                        onclick="ImageManager.clearImageUrl(${propertyId}, ${index})"
-                                        class="px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition"
-                                        ${!urls[index] ? 'disabled' : ''}>
-                                    <i class="fas fa-times"></i>
-                                </button>
+        </div>
+    </div>
+
+    <!-- Main Dashboard - Single User DCC Legal Chambers -->
+    <div id="dashboard" class="hidden min-h-screen bg-gray-50">
+        <header class="corporate-gradient shadow-lg sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center py-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="text-white font-bold text-xl">DCC Legal Chambers</div>
+                        <div class="hidden md:block border-l border-blue-400 pl-4">
+                            <p class="text-sm text-white font-medium">Counsel & Corporate Banking</p>
+                            <p class="text-xs text-blue-200">Trust Account Portal</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="relative">
+                            <button id="notifications-btn" class="relative p-2 text-white hover:text-blue-200 rounded-full hover:bg-blue-800 transition-colors">
+                                <i class="fas fa-bell text-xl"></i>
+                                <span id="notification-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold hidden">0</span>
+                            </button>
+                            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
+                                <div class="p-3 border-b border-gray-100 bg-gray-50"><p class="text-sm font-medium text-gray-900">Notifications</p></div>
+                                <div id="notifications-list" class="divide-y divide-gray-100 max-h-96 overflow-y-auto"></div>
+                                <div class="p-3 border-t border-gray-100 bg-gray-50 text-center">
+                                    <button id="clear-all-notifications" class="text-xs text-blue-600 hover:text-blue-800">Clear All</button>
+                                </div>
                             </div>
                         </div>
-                    `).join('')}
-                </div>
-                
-                <div class="image-preview-container grid grid-cols-2 md:grid-cols-4 gap-4 mt-4" id="image-preview-grid-${propertyId}">
-                    ${this.renderImagePreview(propertyId, urls)}
-                </div>
-            </div>
-        `;
-    },
-    
-    renderImagePreview: function(propertyId, urls) {
-        return urls.filter(url => url).map((url, index) => `
-            <div class="image-preview-item relative rounded-lg overflow-hidden" data-index="${index}">
-                <img src="${url}" alt="Preview ${index + 1}" class="w-full h-32 object-cover" onerror="this.onerror=null; this.src='https://via.placeholder.com/300x200?text=Invalid+URL'">
-                <button class="remove-btn absolute top-1 right-1 w-6 h-6 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center text-sm transition" onclick="ImageManager.removeImageFromProperty(${propertyId}, ${index})">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        `).join('');
-    },
-    
-    updatePropertyImage: function(propertyId, index, url) {
-        const property = DataStore.getProperty(propertyId);
-        if (!property) return;
-        
-        if (!property.images) {
-            property.images = [];
-        }
-        
-        property.images[index] = url;
-        
-        if (index === 0 && url) {
-            property.image = url;
-        }
-        
-        DataStore.saveProperties();
-        SyncManager.queueChange('property', { images: property.images, image: property.image }, propertyId);
-        
-        const grid = document.getElementById(`image-preview-grid-${propertyId}`);
-        if (grid) {
-            grid.innerHTML = this.renderImagePreview(propertyId, property.images);
-        }
-    },
-    
-    removeImageFromProperty: function(propertyId, index) {
-        const property = DataStore.getProperty(propertyId);
-        if (property && property.images) {
-            property.images[index] = '';
-            
-            const input = document.getElementById(`image-url-${propertyId}-${index}`);
-            if (input) input.value = '';
-            
-            if (index === 0) {
-                const firstValidImage = property.images.find(u => u);
-                property.image = firstValidImage || '';
-            }
-            
-            DataStore.saveProperties();
-            SyncManager.queueChange('property', { images: property.images, image: property.image }, propertyId);
-            
-            const grid = document.getElementById(`image-preview-grid-${propertyId}`);
-            if (grid) {
-                grid.innerHTML = this.renderImagePreview(propertyId, property.images);
-            }
-        }
-    },
-    
-    clearImageUrl: function(propertyId, index) {
-        this.removeImageFromProperty(propertyId, index);
-    }
-};
-
-// ==================== PROPERTY MANAGER ====================
-const PropertyManager = {
-    currentFilter: 'all',
-    displayedProperties: 6,
-    
-    renderProperties: function() {
-        const grid = document.getElementById('propertiesGrid');
-        if (!grid) return;
-        
-        let filtered = DataStore.properties;
-        
-        if (this.currentFilter === 'studio') {
-            filtered = DataStore.properties.filter(p => p.type === 'studio');
-        } else if (this.currentFilter === '1-bedroom') {
-            filtered = DataStore.properties.filter(p => p.type === '1-bedroom');
-        } else if (this.currentFilter === '2-bedroom') {
-            filtered = DataStore.properties.filter(p => p.type === '2-bedroom');
-        } else if (this.currentFilter === '3-bedroom') {
-            filtered = DataStore.properties.filter(p => p.type === '3-bedroom');
-        } else if (this.currentFilter === 'featured') {
-            filtered = DataStore.properties.filter(p => p.featured);
-        }
-        
-        const toShow = filtered.slice(0, this.displayedProperties);
-        
-        if (toShow.length === 0) {
-            grid.innerHTML = '<div class="col-span-3 text-center py-12 text-gray-600">No properties found matching your criteria.</div>';
-            return;
-        }
-        
-        grid.innerHTML = toShow.map(prop => this.renderPropertyCard(prop)).join('');
-        
-        // Animate new cards
-        document.querySelectorAll('.property-card').forEach((card, index) => {
-            card.style.animationDelay = `${index * 0.1}s`;
-        });
-    },
-    
-    renderPropertyCard: function(prop) {
-        const images = prop.images ? prop.images.filter(u => u) : [];
-        const imageUrl = images.length > 0 ? images[0] : (prop.image || 'https://via.placeholder.com/800x600?text=No+Image');
-        
-        return `
-        <div class="property-card bg-white rounded-2xl overflow-hidden shadow-lg ${prop.featured ? 'featured-card' : ''}" data-id="${prop.id}" data-aos="fade-up">
-            <div class="image-container relative h-64">
-                <img src="${imageUrl}" alt="${prop.title}" class="w-full h-full object-cover">
-                <div class="absolute top-4 left-4 bg-gradient-primary text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    ${prop.featured ? '<i class="fas fa-star mr-1"></i>' : ''}For Rent
-                </div>
-                ${prop.occupied ? 
-                    '<div class="occupied-badge absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold"><i class="fas fa-user mr-1"></i>Occupied</div>' : 
-                    '<div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold"><i class="fas fa-check-circle mr-1"></i>Available</div>'
-                }
-            </div>
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-xl font-bold text-gray-800">${prop.title}</h3>
-                    <span class="text-2xl font-bold text-gradient-primary">€${prop.price}</span>
-                </div>
-                <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt mr-1 text-blue-600"></i>${prop.location}</p>
-                <div class="flex items-center text-sm text-gray-500 mb-3">
-                    <span class="mr-3"><i class="far fa-calendar-alt mr-1"></i>${prop.available}</span>
-                    <span><i class="far fa-building mr-1"></i>${prop.type}</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">${prop.description}</p>
-                <div class="flex items-center text-gray-600 space-x-4 mb-4">
-                    ${prop.type === 'studio' ? 
-                        '<span><i class="fas fa-door-open mr-1 text-blue-600"></i> Studio</span>' : 
-                        `<span><i class="fas fa-bed mr-1 text-blue-600"></i> ${prop.bedrooms} Bed</span>`
-                    }
-                    <span><i class="fas fa-bath mr-1 text-blue-600"></i> ${prop.bathrooms} Bath</span>
-                    <span><i class="fas fa-vector-square mr-1 text-blue-600"></i> ${prop.sqm} m²</span>
-                </div>
-                <button onclick="PropertyManager.viewDetails(${prop.id})" class="w-full bg-gradient-primary text-white py-3 px-4 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                    View Details
-                </button>
-            </div>
-        </div>
-    `;
-    },
-    
-    renderFilterButtons: function() {
-        const container = document.getElementById('filterContainer');
-        if (!container) return;
-        
-        const counts = {
-            all: DataStore.properties.length,
-            studio: DataStore.properties.filter(p => p.type === 'studio').length,
-            '1-bedroom': DataStore.properties.filter(p => p.type === '1-bedroom').length,
-            '2-bedroom': DataStore.properties.filter(p => p.type === '2-bedroom').length,
-            '3-bedroom': DataStore.properties.filter(p => p.type === '3-bedroom').length,
-            featured: DataStore.properties.filter(p => p.featured).length
-        };
-        
-        container.innerHTML = `
-            <button onclick="PropertyManager.filterProperties('all', event)" class="filter-btn active px-5 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition relative overflow-hidden">
-                All <span class="ml-1 text-xs bg-blue-100 px-2 py-0.5 rounded-full">${counts.all}</span>
-            </button>
-            <button onclick="PropertyManager.filterProperties('studio', event)" class="filter-btn px-5 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition relative overflow-hidden">
-                Studios <span class="ml-1 text-xs bg-blue-100 px-2 py-0.5 rounded-full">${counts.studio}</span>
-            </button>
-            <button onclick="PropertyManager.filterProperties('1-bedroom', event)" class="filter-btn px-5 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition relative overflow-hidden">
-                1 Bed <span class="ml-1 text-xs bg-blue-100 px-2 py-0.5 rounded-full">${counts['1-bedroom']}</span>
-            </button>
-            <button onclick="PropertyManager.filterProperties('2-bedroom', event)" class="filter-btn px-5 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition relative overflow-hidden">
-                2 Bed <span class="ml-1 text-xs bg-blue-100 px-2 py-0.5 rounded-full">${counts['2-bedroom']}</span>
-            </button>
-            <button onclick="PropertyManager.filterProperties('3-bedroom', event)" class="filter-btn px-5 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition relative overflow-hidden">
-                3+ Bed <span class="ml-1 text-xs bg-blue-100 px-2 py-0.5 rounded-full">${counts['3-bedroom']}</span>
-            </button>
-            <button onclick="PropertyManager.filterProperties('featured', event)" class="filter-btn px-5 py-2 rounded-full border-2 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition relative overflow-hidden">
-                Featured <span class="ml-1 text-xs bg-blue-100 px-2 py-0.5 rounded-full">${counts.featured}</span>
-            </button>
-        `;
-    },
-    
-    filterProperties: function(filter, event) {
-        this.currentFilter = filter;
-        
-        document.querySelectorAll('.filter-btn').forEach(btn => {
-            btn.classList.remove('active', 'bg-blue-600', 'text-white');
-            btn.classList.add('text-blue-600');
-        });
-        
-        event.target.classList.add('active', 'bg-blue-600', 'text-white');
-        event.target.classList.remove('text-blue-600');
-        
-        this.displayedProperties = 6;
-        this.renderProperties();
-    },
-    
-    renderAgent: function() {
-        const grid = document.getElementById('agentGrid');
-        if (!grid || !DataStore.agent) return;
-        
-        const agent = DataStore.agent;
-        grid.innerHTML = `
-            <div class="bg-white p-8 rounded-2xl shadow-xl agent-card text-center" data-aos="fade-up">
-                <div class="relative inline-block">
-                    <img src="${agent.image}" alt="${agent.name}" class="w-32 h-32 rounded-full mx-auto mb-4 object-cover border-4 border-blue-200">
-                    <div class="absolute bottom-4 right-0 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-800">${agent.name}</h3>
-                <p class="text-gradient-primary font-medium mb-3">${agent.role}</p>
-                <p class="text-gray-600 mb-2"><i class="fas fa-map-marker-alt mr-1"></i>${agent.location}</p>
-                <p class="text-gray-600 mb-2"><i class="fas fa-briefcase mr-1"></i>${agent.experience} experience</p>
-                <p class="text-gray-600 mb-4"><i class="fas fa-language mr-1"></i>${agent.languages.join(' • ')}</p>
-                <div class="flex justify-center space-x-3 mt-4">
-                    <a href="tel:${agent.phone}" class="bg-gradient-primary text-white px-4 py-2 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                        <i class="fas fa-phone mr-2"></i>Call
-                    </a>
-                    <a href="mailto:${agent.email}" class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition transform hover:-translate-y-0.5">
-                        <i class="fas fa-envelope mr-2"></i>Email
-                    </a>
-                </div>
-            </div>
-        `;
-    },
-    
-    renderTestimonials: function() {
-        const grid = document.getElementById('testimonialsGrid');
-        if (!grid) return;
-        
-        grid.innerHTML = DataStore.testimonials.map((t, index) => `
-            <div class="testimonial-card bg-white p-6 rounded-2xl shadow-lg" data-aos="fade-up" data-aos-delay="${index * 100}">
-                <span class="testimonial-benefit inline-block bg-gradient-primary text-white text-xs px-3 py-1 rounded-full mb-3">${t.benefit}</span>
-                <p class="text-gray-600 mb-4 leading-relaxed">"${t.text}"</p>
-                <div class="rating-stars text-yellow-400 mb-3">
-                    ${Array(t.rating).fill('<i class="fas fa-star"></i>').join('')}
-                    ${t.rating < 5 ? Array(5-t.rating).fill('<i class="far fa-star"></i>').join('') : ''}
-                </div>
-                <div class="testimonial-meta flex items-center">
-                    <img src="${t.image}" alt="${t.name}" class="w-12 h-12 rounded-full mr-3 object-cover border-2 border-blue-200">
-                    <div>
-                        <h4 class="font-semibold text-gray-800">${t.name}</h4>
-                        <p class="text-sm text-gray-500">${t.role} • ${t.location}</p>
-                    </div>
-                    <span class="testimonial-date text-xs text-gray-400 ml-auto">${t.date}</span>
-                </div>
-            </div>
-        `).join('');
-    },
-    
-    searchProperties: function() {
-        const location = document.getElementById('searchLocation').value;
-        const type = document.getElementById('searchType').value;
-        const priceRange = document.getElementById('searchPrice').value;
-        
-        let filtered = DataStore.properties;
-        
-        if (location) filtered = filtered.filter(p => p.location === location);
-        if (type) filtered = filtered.filter(p => p.type === type);
-        if (priceRange) {
-            const [min, max] = priceRange.split('-').map(Number);
-            filtered = filtered.filter(p => p.price >= min && p.price <= max);
-        }
-        
-        this.displayedProperties = Math.min(6, filtered.length);
-        const grid = document.getElementById('propertiesGrid');
-        grid.innerHTML = filtered.slice(0, this.displayedProperties).map(prop => this.renderPropertyCard(prop)).join('');
-        
-        UIHelper.showToast(`Found ${filtered.length} properties, showing first ${this.displayedProperties}`, 'info');
-        
-        // Scroll to properties section
-        document.getElementById('properties').scrollIntoView({ behavior: 'smooth' });
-    },
-    
-    loadMoreProperties: function() {
-        this.displayedProperties += 3;
-        this.renderProperties();
-        if (this.displayedProperties >= DataStore.properties.length) {
-            UIHelper.showToast('All properties loaded', 'success');
-        }
-    },
-    
-    viewDetails: function(propertyId) {
-        const property = DataStore.getProperty(propertyId);
-        if (!property) return;
-        
-        const modal = document.createElement('div');
-        modal.className = 'modal fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50';
-        modal.id = 'propertyDetailModal';
-        
-        modal.innerHTML = `
-            <div class="modal-content bg-white rounded-2xl p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold gradient-text">${property.title}</h2>
-                    <button onclick="this.closest('.modal').remove()" class="text-gray-400 hover:text-gray-600 transition">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                
-                <div class="space-y-6">
-                    ${ImageManager.initSlideshow(propertyId)}
-                    
-                    <div class="flex justify-between items-center bg-gray-50 p-4 rounded-lg">
-                        <span class="text-3xl font-bold text-gradient-primary">€${property.price}<span class="text-sm text-gray-500 font-normal">/month</span></span>
-                        <span class="${property.occupied ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'} px-4 py-2 rounded-full font-semibold">
-                            ${property.occupied ? 'Occupied - Available ' + property.available : 'Available Immediately'}
-                        </span>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 py-4 border-y">
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <i class="fas fa-door-open text-blue-600 text-2xl"></i>
-                            <p class="font-semibold mt-1">${property.type === 'studio' ? 'Studio' : property.bedrooms + ' Bedrooms'}</p>
-                        </div>
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <i class="fas fa-bath text-blue-600 text-2xl"></i>
-                            <p class="font-semibold mt-1">${property.bathrooms} Bathroom${property.bathrooms > 1 ? 's' : ''}</p>
-                        </div>
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <i class="fas fa-vector-square text-blue-600 text-2xl"></i>
-                            <p class="font-semibold mt-1">${property.sqm} m²</p>
-                        </div>
-                        <div class="text-center p-3 bg-gray-50 rounded-lg">
-                            <i class="fas fa-map-marker-alt text-blue-600 text-2xl"></i>
-                            <p class="font-semibold mt-1">${property.location}</p>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <h3 class="font-bold text-lg mb-2">Description</h3>
-                        <p class="text-gray-600 leading-relaxed">${property.description}</p>
-                    </div>
-                    
-                    <div class="bg-gradient-primary bg-opacity-10 p-4 rounded-lg">
-                        <h3 class="font-bold text-lg mb-3">Contact Agent</h3>
-                        <div class="flex items-center">
-                            <img src="${DataStore.agent.image}" alt="${DataStore.agent.name}" class="w-16 h-16 rounded-full mr-4 border-2 border-white">
-                            <div>
-                                <p class="font-semibold text-gray-800">${DataStore.agent.name}</p>
-                                <p class="text-sm text-gray-600">${DataStore.agent.role}</p>
-                                <div class="flex space-x-3 mt-2">
-                                    <a href="tel:${DataStore.agent.phone}" class="text-blue-600 hover:text-blue-800 transition"><i class="fas fa-phone"></i></a>
-                                    <a href="mailto:${DataStore.agent.email}" class="text-blue-600 hover:text-blue-800 transition"><i class="fas fa-envelope"></i></a>
+                        <button id="business-support-btn" class="p-2 text-white hover:text-blue-200 rounded-full hover:bg-blue-800 transition-colors">
+                            <i class="fas fa-headset text-xl"></i>
+                        </button>
+                        <div class="relative">
+                            <button id="user-menu-button" class="flex items-center space-x-2 text-white focus:outline-none">
+                                <div class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center"><i class="fas fa-gavel text-sm"></i></div>
+                                <div class="text-left hidden md:block">
+                                    <p class="text-sm font-medium" id="dashboard-business-name">DCC Legal Chambers</p>
+                                    <p class="text-xs text-blue-200">Counsel Account</p>
+                                </div>
+                                <i class="fas fa-chevron-down text-xs"></i>
+                            </button>
+                            <div id="user-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
+                                <div class="p-3 border-b border-gray-100 bg-gray-50">
+                                    <p class="text-sm font-medium text-gray-900" id="menu-business-name">DCC Legal Chambers</p>
+                                    <p class="text-xs text-gray-500 font-mono" id="menu-business-id">DCC-LEGAL-001</p>
+                                </div>
+                                <div class="p-2">
+                                    <a href="#" id="statements-menu-btn" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded"><i class="fas fa-file-invoice-dollar w-5 text-gray-400"></i> Statements</a>
+                                    <a href="#" id="logout-btn" class="flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded mt-1"><i class="fas fa-sign-out-alt w-5"></i> Sign Out</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        `;
-        
-        document.body.appendChild(modal);
-    },
-    
-    renderAdminTable: function() {
-        return `
-            <div class="bg-white p-6 rounded-2xl shadow-lg overflow-x-auto">
-                <table class="w-full">
-                    <thead>
-                        <tr class="text-left border-b">
-                            <th class="pb-3">ID</th>
-                            <th class="pb-3">Title</th>
-                            <th class="pb-3">Location</th>
-                            <th class="pb-3">Price</th>
-                            <th class="pb-3">Type</th>
-                            <th class="pb-3">Images</th>
-                            <th class="pb-3">Status</th>
-                            <th class="pb-3">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${DataStore.properties.map(p => {
-                            const imageCount = p.images ? p.images.filter(u => u).length : 0;
-                            return `
-                            <tr class="border-b hover:bg-gray-50 transition">
-                                <td class="py-3">${p.id}</td>
-                                <td class="font-medium">${p.title}</td>
-                                <td>${p.location}</td>
-                                <td class="font-semibold">€${p.price}</td>
-                                <td>${p.type}</td>
-                                <td><span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">${imageCount} / 4</span></td>
-                                <td><span class="${p.occupied ? 'bg-orange-100 text-orange-800' : 'bg-green-100 text-green-800'} px-2 py-1 rounded-full text-xs font-semibold">${p.occupied ? 'Occupied' : 'Available'}</span></td>
-                                <td>
-                                    <button onclick="AdminUI.editProperty(${p.id})" class="text-blue-600 hover:text-blue-800 mr-2 transition"><i class="fas fa-edit"></i></button>
-                                    <button onclick="AdminUI.manageImages(${p.id})" class="text-green-600 hover:text-green-800 mr-2 transition"><i class="fas fa-images"></i></button>
-                                </td>
-                            </tr>
-                        `}).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    }
-};
+        </header>
 
-// ==================== TESTIMONIAL CAROUSEL ====================
-const TestimonialCarousel = {
-    currentIndex: 0,
-    items: [],
-    
-    init: function() {
-        this.items = DataStore.testimonials.slice(0, 5);
-        this.render();
-    },
-    
-    render: function() {
-        const container = document.getElementById('quickTestimonials');
-        if (!container) return;
-        
-        container.innerHTML = this.items.map((t, i) => `
-            <div class="flex-shrink-0 w-64 bg-white rounded-xl p-4 shadow-md testimonial-card" style="animation-delay: ${i * 0.1}s">
-                <div class="flex items-center mb-2">
-                    <img src="${t.image}" alt="${t.name}" class="w-10 h-10 rounded-full mr-2 object-cover">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Welcome Banner -->
+            <div class="bg-gradient-to-r from-[#0B2B4A] to-[#1A4A6F] rounded-xl shadow-lg p-6 mb-6 text-white">
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                     <div>
-                        <p class="font-semibold text-sm">${t.name}</p>
-                        <p class="text-xs text-gray-500">${t.location}</p>
+                        <h1 class="text-2xl font-bold" id="welcome-business-name">Welcome to DCC Legal Chambers</h1>
+                        <p class="text-blue-100 mt-1">Trust Account Manager: <span id="welcome-manager">Eleanor Vance, Esq.</span></p>
+                    </div>
+                    <div class="mt-4 md:mt-0 flex space-x-3">
+                        <button id="quick-transfer-btn" class="px-4 py-2 bg-white text-blue-700 rounded-lg hover:bg-gray-100 font-medium transition-colors"><i class="fas fa-exchange-alt mr-2"></i>Transfer</button>
+                        <button id="generate-statement-btn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium transition-colors"><i class="fas fa-file-pdf mr-2"></i>Statement</button>
                     </div>
                 </div>
-                <p class="text-sm text-gray-600 line-clamp-3">"${t.text.substring(0, 80)}..."</p>
-                <div class="flex text-yellow-400 text-xs mt-2">
-                    ${Array(t.rating).fill('<i class="fas fa-star"></i>').join('')}
-                </div>
             </div>
-        `).join('');
-    },
-    
-    next: function() {
-        const container = document.getElementById('quickTestimonials');
-        container.scrollBy({ left: 300, behavior: 'smooth' });
-    },
-    
-    prev: function() {
-        const container = document.getElementById('quickTestimonials');
-        container.scrollBy({ left: -300, behavior: 'smooth' });
-    }
-};
 
-// ==================== ADMIN UI ====================
-const AdminUI = {
-    currentSection: 'dashboard',
-    
-    showSection: function(section) {
-        this.currentSection = section;
-        const content = document.getElementById('adminContent');
-        
-        const sections = {
-            dashboard: () => this.renderDashboard(),
-            properties: () => this.renderProperties(),
-            sync: () => this.renderSyncSettings(),
-            settings: () => this.renderSettings(),
-            security: () => this.renderSecurity()
-        };
-        
-        if (sections[section]) {
-            content.innerHTML = sections[section]();
-        }
-    },
-    
-    renderDashboard: function() {
-        const pendingSync = SyncManager.syncQueue.length;
-        const totalProperties = DataStore.properties.length;
-        const totalImages = DataStore.properties.reduce((sum, p) => 
-            sum + (p.images ? p.images.filter(i => i).length : 0), 0
-        );
-        const occupiedCount = DataStore.properties.filter(p => p.occupied).length;
-        const availableCount = totalProperties - occupiedCount;
-        
-        return `
-            <div class="space-y-6">
-                <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
-                
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div class="text-3xl font-bold text-blue-600">${totalProperties}</div>
-                        <div class="text-gray-600">Total Properties</div>
-                        <i class="fas fa-home absolute bottom-4 right-4 text-4xl text-gray-200"></i>
+            <!-- Account Cards with realistic ~4.3M balance -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="flex justify-between items-start mb-4">
+                        <div><h2 class="text-lg font-semibold text-gray-800">Client Trust Checking</h2><p class="text-sm text-gray-500 font-mono">•••• 7890</p></div>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Primary IOLTA</span>
                     </div>
-                    
-                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div class="text-3xl font-bold text-green-600">${availableCount}</div>
-                        <div class="text-gray-600">Available Now</div>
-                        <i class="fas fa-check-circle absolute bottom-4 right-4 text-4xl text-gray-200"></i>
-                    </div>
-                    
-                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div class="text-3xl font-bold text-orange-600">${occupiedCount}</div>
-                        <div class="text-gray-600">Occupied</div>
-                        <i class="fas fa-user absolute bottom-4 right-4 text-4xl text-gray-200"></i>
-                    </div>
-                    
-                    <div class="admin-card bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition">
-                        <div class="text-3xl font-bold text-purple-600">${totalImages}</div>
-                        <div class="text-gray-600">Total Images</div>
-                        <i class="fas fa-image absolute bottom-4 right-4 text-4xl text-gray-200"></i>
+                    <div class="mb-4"><p class="text-sm text-gray-500">Available Balance</p><p class="text-3xl font-bold text-gray-800" id="checking-balance">$0.00</p></div>
+                    <div class="grid grid-cols-3 gap-3">
+                        <button class="action-btn p-2 bg-blue-50 hover:bg-blue-100 rounded-lg text-center" data-action="transfer"><i class="fas fa-exchange-alt text-blue-600"></i><span class="text-xs block mt-1">Transfer</span></button>
+                        <button class="action-btn p-2 bg-green-50 hover:bg-green-100 rounded-lg text-center" data-action="deposit"><i class="fas fa-arrow-down text-green-600"></i><span class="text-xs block mt-1">Deposit</span></button>
+                        <button class="action-btn p-2 bg-purple-50 hover:bg-purple-100 rounded-lg text-center" data-action="withdraw"><i class="fas fa-arrow-up text-purple-600"></i><span class="text-xs block mt-1">Withdraw</span></button>
                     </div>
                 </div>
-                
-                <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-xl font-bold mb-4">Synchronization Status</h2>
-                    <div class="space-y-3">
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <span>Last Sync:</span>
-                            <span class="font-medium">${SyncManager.lastSyncTime ? SyncManager.getTimeAgo(SyncManager.lastSyncTime) : 'Never'}</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <span>Queue Size:</span>
-                            <span class="font-medium">${pendingSync} items</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                            <span>Connection:</span>
-                            <span class="font-medium ${navigator.onLine ? 'text-green-600' : 'text-red-600'}">
-                                ${navigator.onLine ? 'Online' : 'Offline'}
-                            </span>
-                        </div>
+                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                    <div class="flex justify-between items-start mb-4">
+                        <div><h2 class="text-lg font-semibold text-gray-800">Reserve Savings</h2><p class="text-sm text-gray-500 font-mono">•••• 4567</p></div>
+                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">3.25% APY</span>
                     </div>
-                    
-                    <div class="flex gap-4 mt-6">
-                        <button onclick="SyncManager.forceSync()" class="flex-1 bg-gradient-primary text-white px-4 py-3 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                            <i class="fas fa-sync-alt mr-2"></i>Sync Now
-                        </button>
-                        <button onclick="SyncManager.clearQueue()" class="flex-1 bg-gray-600 text-white px-4 py-3 rounded-lg hover:bg-gray-700 transition transform hover:-translate-y-0.5">
-                            <i class="fas fa-trash mr-2"></i>Clear Queue
-                        </button>
+                    <div class="mb-4"><p class="text-sm text-gray-500">Current Balance</p><p class="text-3xl font-bold text-gray-800" id="savings-balance">$0.00</p></div>
+                    <div class="bg-gray-50 p-3 rounded-lg">
+                        <div class="flex justify-between text-sm"><span class="text-gray-600">Monthly Interest</span><span class="text-green-600 font-medium" id="monthly-interest">$0.00</span></div>
+                        <div class="progress-bar mt-2"><div class="progress-fill bg-green-500" style="width: 0%"></div></div>
                     </div>
                 </div>
             </div>
-        `;
-    },
-    
-    renderProperties: function() {
-        return `
-            <div class="space-y-6">
-                <div class="flex justify-between items-center">
-                    <h1 class="text-3xl font-bold text-gray-800">Properties (${DataStore.properties.length})</h1>
-                    <button onclick="AdminUI.addProperty()" class="bg-gradient-primary text-white px-6 py-3 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                        <i class="fas fa-plus mr-2"></i>Add Property
-                    </button>
-                </div>
-                
-                ${PropertyManager.renderAdminTable()}
-            </div>
-        `;
-    },
-    
-    editProperty: function(propertyId) {
-        const property = DataStore.getProperty(propertyId);
-        if (!property) return;
-        
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-        modal.id = 'editModal';
-        
-        modal.innerHTML = `
-            <div class="bg-white rounded-2xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold gradient-text">Edit Property</h2>
-                    <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600 transition">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                
-                <form onsubmit="AdminUI.saveProperty(event, ${propertyId})" class="space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Title</label>
-                        <input type="text" id="edit-title" value="${property.title}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Price (€)</label>
-                            <input type="number" id="edit-price" value="${property.price}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Location</label>
-                            <input type="text" id="edit-location" value="${property.location}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Description</label>
-                        <textarea id="edit-description" rows="4" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>${property.description}</textarea>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Bedrooms</label>
-                            <input type="number" id="edit-bedrooms" value="${property.bedrooms}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Bathrooms</label>
-                            <input type="number" id="edit-bathrooms" value="${property.bathrooms}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Area (m²)</label>
-                            <input type="number" id="edit-sqm" value="${property.sqm}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Type</label>
-                            <select id="edit-type" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                                <option value="studio" ${property.type === 'studio' ? 'selected' : ''}>Studio</option>
-                                <option value="1-bedroom" ${property.type === '1-bedroom' ? 'selected' : ''}>1 Bedroom</option>
-                                <option value="2-bedroom" ${property.type === '2-bedroom' ? 'selected' : ''}>2 Bedrooms</option>
-                                <option value="3-bedroom" ${property.type === '3-bedroom' ? 'selected' : ''}>3+ Bedrooms</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" id="edit-featured" ${property.featured ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-sm font-medium text-gray-700">Featured Property</span>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="flex items-center space-x-2">
-                                <input type="checkbox" id="edit-occupied" ${property.occupied ? 'checked' : ''} class="rounded text-blue-600 focus:ring-blue-500">
-                                <span class="text-sm font-medium text-gray-700">Occupied</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <div id="availableField" class="${property.occupied ? '' : 'hidden'}">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Available From</label>
-                        <input type="text" id="edit-available" value="${property.available || ''}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="e.g., March 2025">
-                    </div>
-                    
-                    <div class="flex justify-end gap-4 pt-4 border-t">
-                        <button type="button" onclick="this.closest('.fixed').remove()" class="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-                            Cancel
-                        </button>
-                        <button type="submit" class="px-6 py-2 bg-gradient-primary text-white rounded-lg hover:shadow-lg transition">
-                            Save Changes
-                        </button>
-                    </div>
-                </form>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        
-        document.getElementById('edit-occupied').addEventListener('change', function() {
-            document.getElementById('availableField').classList.toggle('hidden', !this.checked);
-        });
-    },
-    
-    saveProperty: function(event, propertyId) {
-        event.preventDefault();
-        
-        const updates = {
-            title: document.getElementById('edit-title').value,
-            price: parseInt(document.getElementById('edit-price').value),
-            location: document.getElementById('edit-location').value,
-            description: document.getElementById('edit-description').value,
-            bedrooms: parseInt(document.getElementById('edit-bedrooms').value),
-            bathrooms: parseInt(document.getElementById('edit-bathrooms').value),
-            sqm: parseInt(document.getElementById('edit-sqm').value),
-            type: document.getElementById('edit-type').value,
-            featured: document.getElementById('edit-featured').checked,
-            occupied: document.getElementById('edit-occupied').checked,
-            available: document.getElementById('edit-occupied').checked ? document.getElementById('edit-available').value : 'Immediate'
-        };
-        
-        DataStore.updateProperty(propertyId, updates);
-        SyncManager.queueChange('property', updates, propertyId);
-        
-        document.getElementById('editModal').remove();
-        this.showSection('properties');
-        PropertyManager.renderProperties();
-        UIHelper.showToast('Property updated and queued for sync', 'success');
-    },
-    
-    manageImages: function(propertyId) {
-        const property = DataStore.getProperty(propertyId);
-        
-        const modal = document.createElement('div');
-        modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-        
-        modal.innerHTML = `
-            <div class="bg-white rounded-2xl p-6 max-w-4xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-                <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-xl font-bold gradient-text">Manage Images: ${property.title}</h2>
-                    <button onclick="this.closest('.fixed').remove()" class="text-gray-400 hover:text-gray-600 transition">
-                        <i class="fas fa-times text-xl"></i>
-                    </button>
-                </div>
-                
-                ${ImageManager.renderImageUrlInputs(propertyId, property.images)}
-                
-                <div class="mt-6 text-sm text-gray-500 bg-blue-50 p-4 rounded-lg">
-                    <i class="fas fa-info-circle mr-1 text-blue-600"></i>
-                    Enter image URLs from Unsplash, Cloudinary, Imgur, or any image hosting service.
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-    },
-    
-    addProperty: function() {
-        const newProperty = {
-            id: Date.now(),
-            title: "New Property",
-            location: "Brussels",
-            price: 1000,
-            type: "studio",
-            featured: false,
-            bedrooms: 0,
-            bathrooms: 1,
-            sqm: 40,
-            description: "New property added through admin panel",
-            image: "",
-            occupied: false,
-            available: "Immediate",
-            images: ["", "", "", ""]
-        };
-        
-        DataStore.addProperty(newProperty);
-        SyncManager.queueChange('property', newProperty, newProperty.id);
-        this.showSection('properties');
-        PropertyManager.renderProperties();
-        UIHelper.showToast('New property added', 'success');
-    },
-    
-    renderSyncSettings: function() {
-        return `
-            <div class="space-y-6">
-                <h1 class="text-3xl font-bold text-gray-800">Sync Settings</h1>
-                
-                <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-xl font-bold mb-4">Synchronization Configuration</h2>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-                            <div>
-                                <h3 class="font-medium">Auto-Sync</h3>
-                                <p class="text-sm text-gray-600">Automatically sync changes every 30 seconds</p>
-                            </div>
-                            <label class="relative inline-flex items-center cursor-pointer">
-                                <input type="checkbox" id="autoSync" class="sr-only peer" checked>
-                                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-gradient-primary"></div>
-                            </label>
-                        </div>
-                        
-                        <div class="p-4 bg-gray-50 rounded-lg">
-                            <h3 class="font-medium mb-2">Sync Queue</h3>
-                            <div class="text-sm text-gray-600 mb-2">${SyncManager.syncQueue.length} items pending</div>
-                            <div class="max-h-40 overflow-y-auto space-y-2">
-                                ${SyncManager.syncQueue.map(item => `
-                                    <div class="text-xs py-2 px-3 bg-white rounded border">
-                                        <span class="font-medium">${item.type}</span> - ${new Date(item.timestamp).toLocaleTimeString()}
-                                    </div>
-                                `).join('') || '<p class="text-gray-500 text-sm">No items in queue</p>'}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    },
-    
-    renderSettings: function() {
-        const s = DataStore.settings;
-        return `
-            <div class="space-y-6">
-                <h1 class="text-3xl font-bold text-gray-800">Settings</h1>
-                
-                <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-xl font-bold mb-4">General Settings</h2>
-                    
-                    <form onsubmit="AdminUI.saveSettings(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Site Title</label>
-                            <input type="text" id="siteTitle" value="${s.siteTitle}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Tagline</label>
-                            <input type="text" id="siteTagline" value="${s.tagline}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Contact Email</label>
-                            <input type="email" id="contactEmail" value="${s.contactEmail}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Contact Phone</label>
-                            <input type="text" id="contactPhone" value="${s.contactPhone}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Address</label>
-                            <textarea id="contactAddress" rows="2" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">${s.address}</textarea>
-                        </div>
-                        
-                        <button type="submit" class="bg-gradient-primary text-white px-6 py-3 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                            Save Settings
-                        </button>
-                    </form>
-                </div>
-            </div>
-        `;
-    },
-    
-    saveSettings: function(event) {
-        event.preventDefault();
-        
-        DataStore.settings = {
-            siteTitle: document.getElementById('siteTitle').value,
-            tagline: document.getElementById('siteTagline').value,
-            contactEmail: document.getElementById('contactEmail').value,
-            contactPhone: document.getElementById('contactPhone').value,
-            address: document.getElementById('contactAddress').value,
-            syncInterval: 30,
-            autoSync: true
-        };
-        
-        DataStore.saveSettings();
-        SyncManager.queueChange('settings', DataStore.settings);
-        UIHelper.showToast('Settings saved and queued for sync', 'success');
-    },
-    
-    renderSecurity: function() {
-        return `
-            <div class="space-y-6">
-                <h1 class="text-3xl font-bold text-gray-800">Security Settings</h1>
-                
-                <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
-                    <h2 class="text-xl font-bold mb-4">Change Admin Access Code</h2>
-                    <p class="text-sm text-gray-600 mb-4">Current code: <span class="font-mono bg-gray-100 px-3 py-1 rounded">${SecurityManager.ADMIN_ACCESS_CODE.join('')}</span></p>
-                    
-                    <form onsubmit="SecurityManager.changeAccessCode(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Current Code</label>
-                            <input type="password" id="currentCode" required maxlength="3" pattern="[0-9]{3}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">New 3-Digit Code</label>
-                            <input type="password" id="newCode" required maxlength="3" pattern="[0-9]{3}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Confirm New Code</label>
-                            <input type="password" id="confirmCode" required maxlength="3" pattern="[0-9]{3}" class="form-input w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                        
-                        <button type="submit" class="bg-gradient-primary text-white px-6 py-3 rounded-lg hover:shadow-lg transition transform hover:-translate-y-0.5">
-                            Update Code
-                        </button>
-                    </form>
-                </div>
-                
-                <div class="admin-card bg-white p-6 rounded-xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-4">Audit Log</h3>
-                    <div class="max-h-64 overflow-y-auto space-y-2">
-                        ${this.renderAuditLog()}
-                    </div>
-                </div>
-            </div>
-        `;
-    },
-    
-    renderAuditLog: function() {
-        const logs = JSON.parse(localStorage.getItem('audit_logs') || '[]');
-        return logs.slice(-10).reverse().map(log => `
-            <div class="text-sm py-2 px-3 bg-gray-50 rounded border">
-                <span class="text-gray-500">${new Date(log.timestamp).toLocaleString()}</span>
-                <span class="ml-2 font-medium">${log.action}</span>
-                <span class="ml-2 text-gray-600">${log.details}</span>
-            </div>
-        `).join('') || '<p class="text-gray-500 text-sm">No audit logs yet</p>';
-    }
-};
 
-// ==================== UI HELPER ====================
-const UIHelper = {
-    showToast: function(message, type = 'info') {
-        const container = document.getElementById('toastContainer');
-        const toast = document.createElement('div');
-        
-        const colors = {
-            success: 'border-green-500 bg-green-50 text-green-800',
-            error: 'border-red-500 bg-red-50 text-red-800',
-            info: 'border-blue-500 bg-blue-50 text-blue-800',
-            warning: 'border-yellow-500 bg-yellow-50 text-yellow-800'
+            <!-- Transaction History -->
+            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center flex-wrap gap-3">
+                    <div><h2 class="text-lg font-semibold text-gray-800">Transaction History</h2><p class="text-sm text-gray-500">Complete ledger record</p></div>
+                    <div class="flex gap-3">
+                        <select id="transaction-filter" class="text-sm border-gray-300 rounded-md px-3 py-1"><option value="all">All Accounts</option><option value="checking">Checking</option><option value="savings">Savings</option></select>
+                        <button id="refresh-transactions" class="text-blue-600 hover:text-blue-800"><i class="fas fa-sync-alt"></i></button>
+                    </div>
+                </div>
+                <div id="transactions-container" class="divide-y divide-gray-200 max-h-96 overflow-y-auto"></div>
+            </div>
+
+            <!-- Summary -->
+            <div class="mt-6 bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <div class="flex justify-between items-center flex-wrap gap-4">
+                    <div><p class="text-sm text-gray-500">Total Assets Under Counsel</p><p class="text-2xl font-bold text-gray-800" id="total-balance">$0.00</p></div>
+                    <div><p class="text-sm text-gray-500">YTD Growth</p><p class="text-xl font-semibold text-green-600" id="ytd-growth">+8.2%</p></div>
+                    <button id="open-new-account" class="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"><i class="fas fa-plus mr-2"></i>Open Account</button>
+                </div>
+            </div>
+        </main>
+        <footer class="bg-white border-t border-gray-200 mt-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
+                <p>© 2026 DCC Legal Chambers | Member FDIC | Equal Opportunity Counsel</p>
+                <p class="mt-1" id="footer-business-name">Trust & Estate Banking Division</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Transfer Modal -->
+    <div id="transfer-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-lg"><div class="p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-lg font-semibold">Transfer Funds</h3><button class="close-modal text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button></div>
+        <form id="transfer-form" class="space-y-4">
+            <div><label class="block text-sm font-medium mb-1">From Account</label><select id="transfer-from" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select></div>
+            <div><label class="block text-sm font-medium mb-1">Transfer Type</label><select id="transfer-type" class="w-full px-3 py-2 border rounded-md"><option value="internal">Internal Transfer (Between My Accounts)</option><option value="external">External Transfer (PENDING 24h)</option></select></div>
+            <div id="internal-transfer-section"><label class="block text-sm font-medium mb-1">To Account</label><select id="transfer-to-internal" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select></div>
+            <div id="external-transfer-section" class="hidden"><div class="bg-gray-50 p-4 rounded-lg space-y-3"><input type="text" id="recipient-name" placeholder="Recipient Full Name *" class="w-full px-3 py-2 border rounded-md"><input type="text" id="bank-name" placeholder="Bank Name *" class="w-full px-3 py-2 border rounded-md"><input type="text" id="account-number" placeholder="Account Number *" class="w-full px-3 py-2 border rounded-md font-mono"><input type="text" id="confirm-account" placeholder="Confirm Account Number *" class="w-full px-3 py-2 border rounded-md font-mono"><input type="text" id="routing-number" placeholder="Routing Number (9 digits)" maxlength="9" class="w-full px-3 py-2 border rounded-md font-mono"><p class="text-xs text-amber-600 mt-1"><i class="fas fa-clock mr-1"></i>External transfers show as PENDING for 24 hours before completing</p></div></div>
+            <div><label class="block text-sm font-medium mb-1">Amount *</label><input type="number" id="transfer-amount" step="0.01" min="0.01" class="w-full px-3 py-2 border rounded-md"></div>
+            <div><label class="block text-sm font-medium mb-1">Description / Reference</label><input type="text" id="transfer-desc" class="w-full px-3 py-2 border rounded-md" placeholder="e.g., Client settlement, invoice payment"></div>
+            <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">Process Transfer</button>
+        </form></div></div></div>
+
+    <!-- Deposit Modal -->
+    <div id="deposit-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md"><div class="p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-lg font-semibold">Make a Deposit</h3><button class="close-modal text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button></div>
+        <form id="deposit-form" class="space-y-4"><select id="deposit-account" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select><input type="number" id="deposit-amount" step="0.01" placeholder="Amount" class="w-full px-3 py-2 border rounded-md"><input type="text" id="deposit-desc" placeholder="Description (e.g., Client retainer)" class="w-full px-3 py-2 border rounded-md"><button type="submit" class="w-full py-3 bg-green-600 text-white rounded-md hover:bg-green-700">Process Deposit</button></form></div></div></div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdraw-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md"><div class="p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-lg font-semibold">Make a Withdrawal</h3><button class="close-modal text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button></div>
+        <form id="withdraw-form" class="space-y-4"><select id="withdraw-account" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select><input type="text" id="withdraw-payable" placeholder="Payable To" class="w-full px-3 py-2 border rounded-md"><input type="number" id="withdraw-amount" step="0.01" placeholder="Amount" class="w-full px-3 py-2 border rounded-md"><input type="text" id="withdraw-desc" placeholder="Purpose" class="w-full px-3 py-2 border rounded-md"><button type="submit" class="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700">Process Withdrawal</button></form></div></div></div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl"><div id="receipt-content" class="receipt-american p-6"></div><div class="p-4 border-t flex justify-end gap-3"><button id="print-receipt" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"><i class="fas fa-print mr-2"></i>Print</button><button id="close-receipt" class="px-4 py-2 border rounded-md hover:bg-gray-50">Close</button></div></div></div>
+
+    <!-- Statement Modal -->
+    <div id="statement-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-5xl"><div class="p-6"><div id="statement-content"></div><div class="mt-6 flex justify-end"><button id="close-statement-modal" class="px-4 py-2 border rounded-md hover:bg-gray-50">Close</button></div></div></div></div>
+
+    <script>
+        // SINGLE USER ACCOUNT - No admin features
+        const SINGLE_USER = {
+            id: "DCC-LEGAL-001",
+            businessName: "DCC Legal Chambers",
+            password: "DCCounsel2026",
+            manager: "Eleanor Vance, Esq.",
+            bankingState: {
+                checking: 4382950.75,   // ~$4.38 million
+                savings: 1250000.00,    // ~$1.25 million
+                transactions: [],
+                notifications: [],
+                pendingExternal: []
+            }
         };
-        
-        const icons = {
-            success: 'fa-check-circle',
-            error: 'fa-exclamation-circle',
-            info: 'fa-info-circle',
-            warning: 'fa-exclamation-triangle'
-        };
-        
-        toast.className = `toast-notification flex items-center p-4 rounded-lg border-l-4 shadow-lg ${colors[type]}`;
-        toast.innerHTML = `
-            <i class="fas ${icons[type]} mr-3 text-xl"></i>
-            <span class="flex-1">${message}</span>
-        `;
-        
-        container.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
-    },
-    
-    handleContactSubmit: function(event) {
-        event.preventDefault();
-        const name = document.getElementById('contactName').value;
-        this.showToast(`Thank you ${name}! Hans Cristiano will contact you within 24 hours.`, 'success');
-        event.target.reset();
-    },
-    
-    setupSmoothScrolling: function() {
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                    document.getElementById('mobile-menu')?.classList.remove('open');
-                }
-            });
-        });
-    },
-    
-    animateCounters: function() {
-        const counters = document.querySelectorAll('.counter-number');
-        counters.forEach(counter => {
-            const target = parseInt(counter.getAttribute('data-target'));
-            const increment = target / 50;
-            let current = 0;
+
+        let currentUser = SINGLE_USER;
+        let currentBankingState = SINGLE_USER.bankingState;
+
+        // Initialize with realistic transaction history
+        function initializeTransactions() {
+            if (currentBankingState.transactions.length > 0) return;
             
-            const updateCounter = () => {
-                if (current < target) {
-                    current += increment;
-                    counter.textContent = Math.ceil(current);
-                    setTimeout(updateCounter, 20);
+            const transactions = [];
+            const descriptions = [
+                "Client Retainer - Morrison Corp", "Legal Fees - Jackson Estate", "Settlement Disbursement", 
+                "Court Filing Fees", "Expert Witness Payment", "Client Deposit - Arbitration Fund",
+                "Operating Expense - Office", "Interest Income - Trust Account", "Wire Transfer Received",
+                "Legal Research Subscription", "Client Refund", "Mediation Fees Collected"
+            ];
+            
+            let checking = currentBankingState.checking;
+            let savings = currentBankingState.savings;
+            
+            for (let i = 0; i < 45; i++) {
+                const isDeposit = Math.random() > 0.55;
+                const amount = Math.round((2500 + Math.random() * 75000) * 100) / 100;
+                const account = Math.random() > 0.3 ? 'checking' : 'savings';
+                const date = new Date(Date.now() - (45 - i) * 24 * 3600000);
+                
+                if (account === 'checking') {
+                    checking = isDeposit ? checking + amount : checking - amount;
                 } else {
-                    counter.textContent = target;
+                    savings = isDeposit ? savings + amount : savings - amount;
                 }
+                
+                transactions.push({
+                    id: Date.now() + i,
+                    date: date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }),
+                    timestamp: date.getTime(),
+                    description: descriptions[i % descriptions.length] + (isDeposit ? " (Received)" : " (Paid)"),
+                    category: isDeposit ? "Deposit" : "Disbursement",
+                    amount: isDeposit ? amount : -amount,
+                    account: account === 'checking' ? 'Checking' : 'Savings',
+                    status: 'completed',
+                    reference: `DCC-${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2,'0')}${date.getDate().toString().padStart(2,'0')}-${Math.floor(Math.random()*10000)}`
+                });
+            }
+            
+            transactions.sort((a, b) => b.timestamp - a.timestamp);
+            currentBankingState.transactions = transactions;
+            currentBankingState.checking = checking;
+            currentBankingState.savings = savings;
+            saveToStorage();
+        }
+
+        function saveToStorage() {
+            localStorage.setItem('dccLegal_singleUser', JSON.stringify({
+                bankingState: currentBankingState,
+                lastLogin: new Date().toISOString()
+            }));
+        }
+
+        function loadFromStorage() {
+            const saved = localStorage.getItem('dccLegal_singleUser');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    currentBankingState.transactions = data.bankingState.transactions || [];
+                    currentBankingState.checking = data.bankingState.checking || 4382950.75;
+                    currentBankingState.savings = data.bankingState.savings || 1250000.00;
+                    currentBankingState.notifications = data.bankingState.notifications || [];
+                    currentBankingState.pendingExternal = data.bankingState.pendingExternal || [];
+                } catch(e) {}
+            }
+            if (currentBankingState.transactions.length === 0) initializeTransactions();
+            startPendingWatcher();
+        }
+
+        function updateBalancesDisplay() {
+            document.getElementById('checking-balance').textContent = `$${currentBankingState.checking.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            document.getElementById('savings-balance').textContent = `$${currentBankingState.savings.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            const total = currentBankingState.checking + currentBankingState.savings;
+            document.getElementById('total-balance').textContent = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+            const interest = (currentBankingState.savings * 0.0325) / 12;
+            document.getElementById('monthly-interest').textContent = `$${interest.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+        }
+
+        function renderTransactions(filter = 'all') {
+            let all = [...currentBankingState.transactions, ...(currentBankingState.pendingExternal || []).map(p => ({
+                ...p, status: 'pending', amount: -p.amount, id: p.id, date: p.createdDate,
+                description: p.description, account: p.fromAccount === 'checking' ? 'Checking' : 'Savings',
+                reference: p.reference, category: 'External Transfer (Pending)'
+            }))];
+            all.sort((a, b) => b.timestamp - a.timestamp);
+            
+            let filtered = all.filter(t => filter === 'all' ? true : t.account.toLowerCase().includes(filter));
+            const container = document.getElementById('transactions-container');
+            if (filtered.length === 0) { container.innerHTML = '<div class="p-8 text-center text-gray-500">No transactions found</div>'; return; }
+            
+            container.innerHTML = filtered.slice(0, 40).map(t => `
+                <div class="transaction-card p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-full flex items-center justify-center ${t.amount > 0 ? 'bg-green-100' : 'bg-red-100'}">
+                                <i class="fas ${t.amount > 0 ? 'fa-arrow-down text-green-600' : 'fa-arrow-up text-red-600'}"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-900">${t.description}</p>
+                                <div class="flex gap-2 text-xs text-gray-500"><span>${t.category || 'Transfer'}</span><span>•</span><span>${t.account}</span><span>•</span><span>${t.date}</span></div>
+                                ${t.status === 'pending' ? '<span class="pending-badge inline-block mt-1"><i class="fas fa-clock mr-1"></i>PENDING (24h hold)</span>' : '<span class="sent-badge inline-block mt-1"><i class="fas fa-check-circle mr-1"></i>COMPLETED</span>'}
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <p class="font-bold ${t.amount > 0 ? 'text-green-600' : 'text-red-600'}">${t.amount > 0 ? '+' : '-'}$${Math.abs(t.amount).toLocaleString()}</p>
+                            <button class="text-xs text-blue-600 hover:text-blue-800 view-receipt-btn mt-1" data-id="${t.id}"><i class="fas fa-receipt mr-1"></i>Receipt</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            document.querySelectorAll('.view-receipt-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const id = parseInt(btn.dataset.id);
+                    let tx = [...currentBankingState.transactions, ...(currentBankingState.pendingExternal || [])].find(t => t.id === id);
+                    if (tx) showReceipt(tx);
+                });
+            });
+        }
+
+        function showReceipt(tx) {
+            const isPending = tx.status === 'pending';
+            const dateStr = new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' });
+            const html = `<div class="receipt-watermark p-6"><div class="text-center border-b pb-4"><div class="text-2xl font-bold text-[#0B2B4A]">DCC LEGAL CHAMBERS</div><p class="text-gray-500 text-sm">Counsel Trust Banking • Member FDIC</p><p class="text-xs text-gray-400 mt-1">Official Transaction Receipt</p></div>
+            <div class="grid grid-cols-2 gap-4 my-6 bg-gray-50 p-4 rounded-lg"><div><span class="text-xs text-gray-500">RECEIPT NO:</span><div class="font-mono text-sm">${tx.reference || `DCC-${tx.id}`}</div></div><div><span class="text-xs text-gray-500">DATE & TIME:</span><div class="text-sm">${dateStr}</div></div><div><span class="text-xs text-gray-500">STATUS:</span><div><span class="${isPending ? 'pending-badge' : 'sent-badge'} px-2 py-0.5 text-xs">${isPending ? 'PENDING (24h hold)' : 'COMPLETED / SENT'}</span></div></div><div><span class="text-xs text-gray-500">TRANSACTION TYPE:</span><div class="text-sm font-medium">${tx.amount > 0 ? 'DEPOSIT / CREDIT' : 'WITHDRAWAL / DEBIT'}</div></div></div>
+            <div class="border-t border-b py-4 my-4"><div class="flex justify-between mb-2"><span class="text-gray-600">Description:</span><span class="font-medium">${tx.description}</span></div><div class="flex justify-between mb-2"><span class="text-gray-600">Account:</span><span>${tx.account}</span></div><div class="flex justify-between"><span class="text-gray-600">Reference:</span><span class="font-mono text-xs">${tx.reference || 'N/A'}</span></div></div>
+            <div class="bg-[#0B2B4A] text-white p-5 rounded-xl text-center my-4"><p class="text-sm opacity-80">Transaction Amount</p><p class="text-4xl font-bold tracking-tight">${tx.amount > 0 ? '+' : '-'}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p></div>
+            <div class="text-center text-xs text-gray-400 mt-4">This receipt serves as official record. For inquiries contact Counsel Trust Operations.<br>© 2026 DCC Legal Chambers</div></div>`;
+            document.getElementById('receipt-content').innerHTML = html;
+            document.getElementById('receipt-modal').classList.add('active');
+        }
+
+        function addTransaction(account, amount, description, category) {
+            if (account === 'checking') currentBankingState.checking += amount;
+            else currentBankingState.savings += amount;
+            
+            const transaction = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }),
+                timestamp: Date.now(),
+                description: description,
+                category: category,
+                amount: amount,
+                account: account === 'checking' ? 'Checking' : 'Savings',
+                status: 'completed',
+                reference: `DCC-${Date.now()}-${Math.floor(Math.random()*10000)}`
+            };
+            currentBankingState.transactions.unshift(transaction);
+            updateBalancesDisplay();
+            renderTransactions();
+            saveToStorage();
+            showReceipt(transaction);
+            addNotification('Transaction Complete', `$${Math.abs(amount).toLocaleString()} processed successfully`, 'success');
+        }
+
+        function scheduleExternalTransfer(fromAccount, amount, description, recipientDetails) {
+            const pendingId = Date.now();
+            const pendingObj = {
+                id: pendingId,
+                amount: amount,
+                fromAccount: fromAccount,
+                description: description || `External transfer to ${recipientDetails.recipientName} at ${recipientDetails.bankName}`,
+                createdDate: new Date().toLocaleDateString(),
+                timestamp: Date.now(),
+                expiry: Date.now() + 24 * 3600 * 1000,
+                reference: `EXT-${pendingId}`,
+                status: 'pending',
+                account: fromAccount === 'checking' ? 'Checking' : 'Savings'
             };
             
-            updateCounter();
-        });
-    }
-};
+            // Deduct immediately
+            if (fromAccount === 'checking') currentBankingState.checking -= amount;
+            else currentBankingState.savings -= amount;
+            
+            if (!currentBankingState.pendingExternal) currentBankingState.pendingExternal = [];
+            currentBankingState.pendingExternal.push(pendingObj);
+            updateBalancesDisplay();
+            renderTransactions();
+            saveToStorage();
+            addNotification('External Transfer Scheduled', `$${amount.toLocaleString()} to external account will be sent within 24 hours. Status: PENDING`, 'warning');
+            
+            // Auto-complete after 24 hours
+            setTimeout(() => finalizeExternalTransfer(pendingId), 24 * 3600 * 1000);
+        }
 
-// ==================== INITIALIZATION ====================
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize data
-    DataStore.init();
-    SyncManager.init();
-    
-    // Render frontend
-    PropertyManager.renderProperties();
-    PropertyManager.renderFilterButtons();
-    PropertyManager.renderAgent();
-    PropertyManager.renderTestimonials();
-    
-    // Initialize carousel
-    TestimonialCarousel.init();
-    
-    // Setup UI
-    UIHelper.setupSmoothScrolling();
-    UIHelper.animateCounters();
-    
-    // Mobile menu toggle
-    document.getElementById('mobile-menu-button')?.addEventListener('click', function() {
-        document.getElementById('mobile-menu').classList.toggle('open');
-    });
-    
-    // Close modals when clicking outside
-    window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal')) {
-            event.target.remove();
+        function finalizeExternalTransfer(pendingId) {
+            const idx = currentBankingState.pendingExternal?.findIndex(p => p.id === pendingId);
+            if (idx === -1 || !currentBankingState.pendingExternal) return;
+            const pending = currentBankingState.pendingExternal[idx];
+            
+            const completedTx = {
+                id: Date.now(),
+                date: new Date().toLocaleDateString(),
+                timestamp: Date.now(),
+                description: pending.description + " (Sent)",
+                category: "External Transfer",
+                amount: -pending.amount,
+                account: pending.fromAccount === 'checking' ? 'Checking' : 'Savings',
+                status: 'completed',
+                reference: pending.reference
+            };
+            currentBankingState.transactions.unshift(completedTx);
+            currentBankingState.pendingExternal.splice(idx, 1);
+            saveToStorage();
+            renderTransactions();
+            addNotification('External Transfer Sent', `$${pending.amount.toLocaleString()} transfer has been completed.`, 'success');
         }
-    });
-    
-    // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
-        // Ctrl+Shift+A for admin
-        if (e.ctrlKey && e.shiftKey && e.key === 'A') {
-            e.preventDefault();
-            SecurityManager.showThreeKeyLogin();
+
+        function startPendingWatcher() {
+            setInterval(() => {
+                if (currentBankingState.pendingExternal) {
+                    const before = currentBankingState.pendingExternal.length;
+                    currentBankingState.pendingExternal = currentBankingState.pendingExternal.filter(p => p.expiry > Date.now());
+                    if (before !== currentBankingState.pendingExternal.length) {
+                        renderTransactions();
+                        saveToStorage();
+                    }
+                }
+            }, 60000);
         }
-        // Escape to close modals
-        if (e.key === 'Escape') {
-            document.querySelectorAll('.modal').forEach(m => m.remove());
+
+        function addNotification(title, message, type = 'info') {
+            currentBankingState.notifications.unshift({
+                id: Date.now(), title, message, type, timestamp: Date.now(), read: false
+            });
+            saveToStorage();
+            updateNotificationDisplay();
+            showToast(title, message, type);
         }
-    });
-    
-    // Add active class to nav links on scroll
-    window.addEventListener('scroll', function() {
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('.nav-link');
-        
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - 200) {
-                current = section.getAttribute('id');
+
+        function showToast(title, message, type) {
+            const toast = document.createElement('div');
+            toast.className = `fixed bottom-4 right-4 z-50 bg-white rounded-lg shadow-lg p-4 max-w-sm border-l-4 ${type === 'success' ? 'border-green-500' : type === 'error' ? 'border-red-500' : 'border-amber-500'} transform transition-all duration-300 translate-x-full`;
+            toast.innerHTML = `<div class="flex gap-3"><i class="fas ${type === 'success' ? 'fa-check-circle text-green-500' : type === 'error' ? 'fa-exclamation-circle text-red-500' : 'fa-clock text-amber-500'}"></i><div><p class="font-medium">${title}</p><p class="text-sm text-gray-600">${message}</p></div><button class="close-toast text-gray-400"><i class="fas fa-times"></i></button></div>`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.classList.remove('translate-x-full'), 10);
+            toast.querySelector('.close-toast').onclick = () => { toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); };
+            setTimeout(() => { if (toast.parentNode) { toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); } }, 5000);
+        }
+
+        function updateNotificationDisplay() {
+            const unread = currentBankingState.notifications?.filter(n => !n.read).length || 0;
+            const countEl = document.getElementById('notification-count');
+            countEl.textContent = unread;
+            countEl.classList.toggle('hidden', unread === 0);
+            if (unread > 0) countEl.classList.add('notification-pulse');
+            else countEl.classList.remove('notification-pulse');
+            
+            const container = document.getElementById('notifications-list');
+            if (container) {
+                if (!currentBankingState.notifications?.length) container.innerHTML = '<div class="p-4 text-center text-gray-500">No notifications</div>';
+                else container.innerHTML = currentBankingState.notifications.slice(0, 20).map(n => `<div class="p-3 hover:bg-gray-50 cursor-pointer ${!n.read ? 'bg-blue-50' : ''}" data-id="${n.id}"><p class="text-sm font-medium">${n.title}</p><p class="text-xs text-gray-500">${n.message}</p><p class="text-xs text-gray-400 mt-1">${new Date(n.timestamp).toLocaleTimeString()}</p></div>`).join('');
             }
-        });
+        }
+
+        // Event Listeners
+        function init() {
+            loadFromStorage();
+            updateBalancesDisplay();
+            renderTransactions();
+            
+            document.getElementById('login-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const uid = document.getElementById('username').value;
+                const pwd = document.getElementById('password').value;
+                if (uid === SINGLE_USER.id && pwd === SINGLE_USER.password) {
+                    document.getElementById('processing-overlay').classList.add('active');
+                    setTimeout(() => {
+                        document.getElementById('login-page').style.display = 'none';
+                        document.getElementById('dashboard').classList.remove('hidden');
+                        document.getElementById('processing-overlay').classList.remove('active');
+                        addNotification('Welcome Back', `Logged into ${SINGLE_USER.businessName} Trust Account`, 'success');
+                    }, 800);
+                } else {
+                    showToast('Login Failed', 'Invalid Business ID or Password', 'error');
+                }
+            });
+            
+            document.getElementById('logout-btn').addEventListener('click', () => {
+                document.getElementById('dashboard').classList.add('hidden');
+                document.getElementById('login-page').style.display = 'flex';
+                document.getElementById('username').value = '';
+                document.getElementById('password').value = '';
+                showToast('Signed Out', 'You have been successfully logged out', 'success');
+            });
+            
+            document.getElementById('transfer-type').addEventListener('change', function() {
+                document.getElementById('internal-transfer-section').classList.toggle('hidden', this.value !== 'internal');
+                document.getElementById('external-transfer-section').classList.toggle('hidden', this.value !== 'external');
+            });
+            
+            document.getElementById('transfer-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const from = document.getElementById('transfer-from').value;
+                const type = document.getElementById('transfer-type').value;
+                const amount = parseFloat(document.getElementById('transfer-amount').value);
+                const desc = document.getElementById('transfer-desc').value;
+                const balance = from === 'checking' ? currentBankingState.checking : currentBankingState.savings;
+                
+                if (!amount || amount <= 0) { showToast('Error', 'Invalid amount', 'error'); return; }
+                if (amount > balance) { showToast('Error', 'Insufficient funds', 'error'); return; }
+                
+                if (type === 'internal') {
+                    const to = document.getElementById('transfer-to-internal').value;
+                    addTransaction(from, -amount, desc || `Transfer to ${to === 'checking' ? 'Trust Checking' : 'Reserve Savings'}`, 'Internal Transfer');
+                    addTransaction(to, amount, desc || `Transfer from ${from === 'checking' ? 'Trust Checking' : 'Reserve Savings'}`, 'Internal Transfer');
+                    document.getElementById('transfer-modal').classList.remove('active');
+                    document.getElementById('transfer-form').reset();
+                } else if (type === 'external') {
+                    const recipientName = document.getElementById('recipient-name').value;
+                    const bankName = document.getElementById('bank-name').value;
+                    const accountNumber = document.getElementById('account-number').value;
+                    const confirmAccount = document.getElementById('confirm-account').value;
+                    const routingNumber = document.getElementById('routing-number').value;
+                    if (!recipientName || !bankName || !accountNumber || !routingNumber) {
+                        showToast('Error', 'Please fill all external transfer fields', 'error');
+                        return;
+                    }
+                    if (routingNumber.length !== 9 || !/^\d+$/.test(routingNumber)) {
+                        showToast('Error', 'Routing number must be 9 digits', 'error');
+                        return;
+                    }
+                    if (accountNumber !== confirmAccount) {
+                        showToast('Error', 'Account numbers do not match', 'error');
+                        return;
+                    }
+                    scheduleExternalTransfer(from, amount, desc || `External transfer to ${recipientName}`, { recipientName, bankName });
+                    document.getElementById('transfer-modal').classList.remove('active');
+                    document.getElementById('transfer-form').reset();
+                }
+            });
+            
+            document.querySelectorAll('.action-btn[data-action="transfer"], #quick-transfer-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.getElementById('transfer-form').reset();
+                    document.getElementById('internal-transfer-section').classList.remove('hidden');
+                    document.getElementById('external-transfer-section').classList.add('hidden');
+                    document.getElementById('transfer-type').value = 'internal';
+                    document.getElementById('transfer-modal').classList.add('active');
+                });
+            });
+            
+            document.querySelectorAll('.action-btn[data-action="deposit"]').forEach(btn => {
+                btn.addEventListener('click', () => document.getElementById('deposit-modal').classList.add('active'));
+            });
+            
+            document.querySelectorAll('.action-btn[data-action="withdraw"]').forEach(btn => {
+                btn.addEventListener('click', () => document.getElementById('withdraw-modal').classList.add('active'));
+            });
+            
+            document.getElementById('deposit-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const account = document.getElementById('deposit-account').value;
+                const amount = parseFloat(document.getElementById('deposit-amount').value);
+                const desc = document.getElementById('deposit-desc').value;
+                if (!amount || amount <= 0) { showToast('Error', 'Invalid amount', 'error'); return; }
+                addTransaction(account, amount, desc || 'Deposit', 'Deposit');
+                document.getElementById('deposit-modal').classList.remove('active');
+                document.getElementById('deposit-form').reset();
+            });
+            
+            document.getElementById('withdraw-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                const account = document.getElementById('withdraw-account').value;
+                const amount = parseFloat(document.getElementById('withdraw-amount').value);
+                const desc = document.getElementById('withdraw-desc').value;
+                const payable = document.getElementById('withdraw-payable').value;
+                const balance = account === 'checking' ? currentBankingState.checking : currentBankingState.savings;
+                if (!amount || amount <= 0) { showToast('Error', 'Invalid amount', 'error'); return; }
+                if (amount > balance) { showToast('Error', 'Insufficient funds', 'error'); return; }
+                addTransaction(account, -amount, desc || `Withdrawal to ${payable || 'Bearer'}`, 'Withdrawal');
+                document.getElementById('withdraw-modal').classList.remove('active');
+                document.getElementById('withdraw-form').reset();
+            });
+            
+            document.getElementById('generate-statement-btn').addEventListener('click', () => {
+                const totalDeposits = currentBankingState.transactions.filter(t => t.amount > 0).reduce((s, t) => s + t.amount, 0);
+                const totalWithdrawals = currentBankingState.transactions.filter(t => t.amount < 0).reduce((s, t) => s + Math.abs(t.amount), 0);
+                const totalBalance = currentBankingState.checking + currentBankingState.savings;
+                document.getElementById('statement-content').innerHTML = `
+                    <div class="bg-white p-6 rounded-lg border"><div class="text-center mb-8"><div class="text-3xl font-bold text-[#0B2B4A] mb-2">DCC LEGAL CHAMBERS</div><p class="text-gray-600">Trust Account Statement</p><p class="text-sm text-gray-500">Generated: ${new Date().toLocaleString()}</p></div>
+                    <div class="grid grid-cols-3 gap-4 mb-8"><div class="bg-gray-50 p-4 rounded-lg text-center"><p class="text-sm text-gray-500">Total Deposits</p><p class="text-xl font-bold text-green-600">$${totalDeposits.toLocaleString()}</p></div><div class="bg-gray-50 p-4 rounded-lg text-center"><p class="text-sm text-gray-500">Total Withdrawals</p><p class="text-xl font-bold text-red-600">$${totalWithdrawals.toLocaleString()}</p></div><div class="bg-gray-50 p-4 rounded-lg text-center"><p class="text-sm text-gray-500">Current Balance</p><p class="text-xl font-bold">$${totalBalance.toLocaleString()}</p></div></div>
+                    <div class="overflow-x-auto"><table class="w-full text-sm"><thead class="bg-gray-100"><tr><th class="p-3 text-left">Date</th><th class="p-3 text-left">Description</th><th class="p-3 text-left">Account</th><th class="p-3 text-right">Amount</th></tr></thead><tbody>${currentBankingState.transactions.slice(0, 30).map(t => `<tr class="border-t"><td class="p-3">${t.date}</td><td class="p-3">${t.description}</td><td class="p-3">${t.account}</td><td class="p-3 text-right ${t.amount > 0 ? 'text-green-600' : 'text-red-600'}">${t.amount > 0 ? '+' : '-'}$${Math.abs(t.amount).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>
+                    <div class="mt-6 p-4 bg-gray-100 rounded-lg text-center"><p><strong>DCC Legal Chambers</strong> | Trust Account ID: DCC-LEGAL-001</p><p>Account Manager: Eleanor Vance, Esq.</p></div></div>`;
+                document.getElementById('statement-modal').classList.add('active');
+            });
+            
+            document.getElementById('statements-menu-btn').addEventListener('click', () => document.getElementById('generate-statement-btn').click());
+            document.getElementById('clear-all-notifications').addEventListener('click', () => {
+                currentBankingState.notifications = [];
+                saveToStorage();
+                updateNotificationDisplay();
+                showToast('Cleared', 'All notifications cleared', 'info');
+            });
+            document.getElementById('business-support-btn').addEventListener('click', () => showToast('Client Support', 'Contact Eleanor Vance, Esq. at (212) 555-0142', 'info'));
+            document.getElementById('open-new-account').addEventListener('click', () => showToast('New Account', 'Please contact your account manager to open additional trust accounts', 'info'));
+            document.getElementById('print-receipt').addEventListener('click', () => { const w = window.open('', '_blank'); w.document.write(document.getElementById('receipt-content').innerHTML); w.print(); });
+            
+            document.querySelectorAll('.close-modal, #close-statement-modal, #close-receipt').forEach(btn => {
+                btn.addEventListener('click', () => document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')));
+            });
+            
+            document.getElementById('notifications-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('notifications-dropdown').classList.toggle('hidden');
+                updateNotificationDisplay();
+            });
+            
+            document.getElementById('user-menu-button').addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('user-menu').classList.toggle('hidden');
+            });
+            
+            document.getElementById('transaction-filter').addEventListener('change', (e) => renderTransactions(e.target.value));
+            document.getElementById('refresh-transactions').addEventListener('click', () => renderTransactions(document.getElementById('transaction-filter').value));
+            
+            document.addEventListener('click', () => {
+                document.getElementById('notifications-dropdown')?.classList.add('hidden');
+                document.getElementById('user-menu')?.classList.add('hidden');
+            });
+        }
         
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
+        window.addEventListener('load', () => {
+            setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
+            init();
         });
-    });
-});
-
-// Global exports
-window.SyncManager = SyncManager;
-window.SecurityManager = SecurityManager;
-window.ImageManager = ImageManager;
-window.DataStore = DataStore;
-window.PropertyManager = PropertyManager;
-window.AdminUI = AdminUI;
-window.UIHelper = UIHelper;
-window.TestimonialCarousel = TestimonialCarousel;
-</script>
-
+    </script>
 </body>
 </html>
