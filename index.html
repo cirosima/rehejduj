@@ -3,792 +3,805 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DCC Legal Chambers | Counsel Banking</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Bank Wire Transfer Receipt - Full Editability | PDF Generator</title>
+    
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
-        .corporate-gradient {
-            background: linear-gradient(135deg, #0A2E45 0%, #0B3B5E 100%);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .transaction-card {
-            transition: all 0.2s ease;
+
+        body {
+            background: #eef2f8;
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+            padding: 30px 20px;
         }
-        .transaction-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+
+        /* Main Layout */
+        .app-wrapper {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
         }
-        .pending-badge {
-            background: #FEF3C7;
-            color: #D97706;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        .sent-badge {
-            background: #D1FAE5;
-            color: #059669;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-        .modal {
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            opacity: 0;
-            visibility: hidden;
-        }
-        .modal.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-            max-height: 90vh;
+
+        /* Editor Panel */
+        .editor-section {
+            flex: 1;
+            min-width: 300px;
+            background: white;
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
             overflow-y: auto;
         }
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-        .progress-bar {
-            height: 8px;
-            border-radius: 4px;
-            background: #e5e7eb;
-            overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-        .loading-spinner {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #1A4A6F;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .processing-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.7);
+
+        .editor-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0a2b4e;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e9ecef;
             display: flex;
             align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #2c3e66;
+            margin-bottom: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group label i {
+            margin-right: 5px;
+            width: 16px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            font-size: 13px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #0a5b8c;
+            box-shadow: 0 0 0 3px rgba(10,91,140,0.1);
+        }
+
+        .status-option-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .status-option {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 40px;
+            text-align: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .status-option.pending {
+            background: #fff3e0;
+            color: #c26b1a;
+            border-color: #ffe0b5;
+        }
+
+        .status-option.sent {
+            background: #e0f7e8;
+            color: #0e6b3e;
+            border-color: #b8e0cc;
+        }
+
+        .status-option.completed {
+            background: #e0ecfe;
+            color: #1a5a9c;
+            border-color: #c0d4f0;
+        }
+
+        .status-option.cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+            border-color: #fccaca;
+        }
+
+        .status-option.selected {
+            border-color: #0a5b8c;
+            box-shadow: 0 2px 8px rgba(10,91,140,0.2);
+            transform: scale(1.02);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .btn-pdf {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             justify-content: center;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
+            flex: 1;
+            font-size: 14px;
+            transition: all 0.2s;
         }
-        .processing-overlay.active {
-            opacity: 1;
-            visibility: visible;
+
+        .btn-pdf:hover {
+            background: #b91c1c;
+            transform: translateY(-1px);
         }
-        .toast-notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1000;
-            animation: slideIn 0.3s ease forwards;
+
+        .btn-refresh {
+            background: #e9ecef;
+            color: #1e3a5f;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: center;
+            flex: 1;
+            font-size: 14px;
         }
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+
+        .btn-refresh:hover {
+            background: #dce3ec;
         }
-        .receipt-watermark {
-            position: relative;
+
+        .info-privacy {
+            margin-top: 20px;
+            padding: 12px;
+            background: #f0f4f9;
+            border-radius: 12px;
+            font-size: 11px;
+            color: #2c5a7a;
+        }
+
+        /* ========== RECEIPT STYLES ========== */
+        .receipt-wrapper {
+            flex: 1.4;
+            min-width: 480px;
+        }
+
+        .receipt-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             overflow: hidden;
         }
-        .receipt-watermark::after {
-            content: "CONFIRMED";
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            font-size: 60px;
-            font-weight: bold;
-            color: rgba(0,0,0,0.03);
-            transform: rotate(-15deg);
-            pointer-events: none;
+
+        .receipt-for-pdf {
+            background: white;
+            padding: 40px 35px;
+            font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+            max-width: 100%;
         }
-        .notification-pulse {
-            animation: pulse 2s infinite;
+
+        .receipt-for-pdf table {
+            width: 100%;
+            border-collapse: collapse;
         }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+        .receipt-for-pdf .bank-name {
+            font-size: 28px;
+            font-weight: 800;
+            color: #0a2b4e;
+            margin: 0;
+        }
+
+        .receipt-for-pdf .bank-tagline {
+            font-size: 11px;
+            color: #6c7e9e;
+            margin-top: 5px;
+        }
+
+        .receipt-for-pdf .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .receipt-for-pdf .status-badge.pending {
+            background: #fff3e0;
+            color: #c26b1a;
+        }
+        .receipt-for-pdf .status-badge.sent {
+            background: #e0f7e8;
+            color: #0e6b3e;
+        }
+        .receipt-for-pdf .status-badge.completed {
+            background: #e0ecfe;
+            color: #1a5a9c;
+        }
+        .receipt-for-pdf .status-badge.cancelled {
+            background: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .receipt-for-pdf .message-box {
+            background: #eef6fc;
+            padding: 14px 18px;
+            border-left: 4px solid #0a5b8c;
+            margin: 20px 0;
+            font-size: 13px;
+            color: #0a5b8c;
+        }
+
+        .receipt-for-pdf .info-box {
+            background: #f8f9fc;
+            padding: 12px 18px;
+            border: 1px solid #e2e8f0;
+            margin: 18px 0;
+            font-size: 12px;
+            color: #4a5b7a;
+        }
+
+        .receipt-for-pdf .details-table {
+            width: 100%;
+            margin: 20px 0;
+        }
+
+        .receipt-for-pdf .details-table tr {
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .receipt-for-pdf .details-table td {
+            padding: 12px 8px 12px 0;
+            vertical-align: top;
+        }
+
+        .receipt-for-pdf .label-cell {
+            width: 170px;
+            font-weight: 700;
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #1e3a5f;
+            letter-spacing: 0.3px;
+        }
+
+        .receipt-for-pdf .value-cell {
+            font-weight: 500;
+            font-size: 14px;
+            color: #0f2b3f;
+            word-break: break-word;
+        }
+
+        .receipt-for-pdf .amount-highlight {
+            font-weight: 800;
+            color: #0a4b6e;
+            font-size: 16px;
+        }
+
+        .receipt-for-pdf .fee-note {
+            background: #fef7e0;
+            padding: 12px 18px;
+            margin: 20px 0;
+            border-left: 3px solid #e6a017;
+            font-size: 12px;
+        }
+
+        .receipt-for-pdf .delivery-section {
+            background: #fafcff;
+            border: 1px solid #eef2fa;
+            padding: 16px 20px;
+            margin: 20px 0;
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .receipt-for-pdf .delivery-item {
+            flex: 1;
+        }
+
+        .receipt-for-pdf .delivery-label {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #6c7f9c;
+        }
+
+        .receipt-for-pdf .delivery-value {
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 6px;
+            color: #1a344d;
+        }
+
+        .receipt-for-pdf .beneficiary-box {
+            background: #f8fafd;
+            border-left: 3px solid #0a5b8c;
+            padding: 16px 20px;
+            margin: 20px 0;
+        }
+
+        .receipt-for-pdf .beneficiary-title {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #516e8f;
+        }
+
+        .receipt-for-pdf .beneficiary-content {
+            font-family: monospace;
+            font-size: 13px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .receipt-for-pdf .watermark {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf3fa;
+            font-size: 10px;
+            color: #8da1bc;
+        }
+
+        @media (max-width: 950px) {
+            .app-wrapper {
+                flex-direction: column;
+            }
+            .editor-section {
+                position: static;
+                max-height: none;
+            }
+            .receipt-wrapper {
+                min-width: auto;
+            }
+            .receipt-for-pdf {
+                padding: 25px;
+            }
         }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50">
-
-    <!-- Loading Screen -->
-    <div id="loading-screen" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
-        <div class="text-center">
-            <div class="loading-spinner mx-auto"></div>
-            <p class="mt-4 text-gray-700 font-medium">Loading DCC Legal Chambers Banking Portal</p>
+<body>
+<div class="app-wrapper">
+    <!-- EDITOR PANEL -->
+    <div class="editor-section">
+        <div class="editor-title">
+            <i class="fas fa-pen-ruler"></i> Edit Receipt Information
         </div>
-    </div>
-
-    <!-- Processing Overlay -->
-    <div id="processing-overlay" class="processing-overlay">
-        <div class="bg-white rounded-lg p-8 text-center max-w-sm">
-            <div class="loading-spinner mx-auto mb-4"></div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">Processing Transaction</h3>
-            <p class="text-sm text-gray-500" id="processing-message">Please wait...</p>
-        </div>
-    </div>
-
-    <!-- Login Page (unchanged per requirement) -->
-    <div id="login-page" class="min-h-screen flex items-center justify-center corporate-gradient p-4">
-        <div class="w-full max-w-md">
-            <div class="rounded-2xl shadow-2xl overflow-hidden" style="background: rgba(255,255,255,0.1); backdrop-filter: blur(10px);">
-                <div class="p-8">
-                    <div class="text-center mb-8">
-                        <div class="text-4xl font-bold text-white mb-2">Prame Trust</div>
-                        <p class="text-blue-100">Business Banking</p>
-                        <h1 class="text-xl font-bold text-white mt-4">Secure Corporate Access</h1>
-                    </div>
-                    <form id="login-form" class="space-y-6">
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100">Business ID</label>
-                            <input type="text" id="username" required 
-                                   class="mt-1 block w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 border border-blue-300 focus:ring-2 focus:ring-blue-500 font-mono"
-                                   placeholder="Enter your Business ID">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-blue-100">Password</label>
-                            <input type="password" id="password" required 
-                                   class="mt-1 block w-full px-4 py-3 rounded-lg bg-white bg-opacity-90 border border-blue-300 focus:ring-2 focus:ring-blue-500 font-mono"
-                                   placeholder="Enter your password">
-                        </div>
-                        <button type="submit" class="w-full flex justify-center items-center py-3 px-4 rounded-lg text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 transition-colors">
-                            <i class="fas fa-sign-in-alt mr-2"></i> Sign In
-                        </button>
-                    </form>
-                    <div class="mt-8 pt-6 border-t border-blue-400 border-opacity-30">
-                        <div class="flex justify-center space-x-4">
-                            <span class="text-xs text-blue-200"><i class="fas fa-shield-alt mr-1"></i> FDIC Insured</span>
-                            <span class="text-xs text-blue-200"><i class="fas fa-lock mr-1"></i> 256-bit Encryption</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Dashboard - Single User DCC Legal Chambers -->
-    <div id="dashboard" class="hidden min-h-screen bg-gray-50">
-        <header class="corporate-gradient shadow-lg sticky top-0 z-40">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center py-4">
-                    <div class="flex items-center space-x-4">
-                        <div class="text-white font-bold text-xl">DCC Legal Chambers</div>
-                        <div class="hidden md:block border-l border-blue-400 pl-4">
-                            <p class="text-sm text-white font-medium">Counsel & Corporate Banking</p>
-                            <p class="text-xs text-blue-200">Trust Account Portal</p>
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <button id="notifications-btn" class="relative p-2 text-white hover:text-blue-200 rounded-full hover:bg-blue-800 transition-colors">
-                                <i class="fas fa-bell text-xl"></i>
-                                <span id="notification-count" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold hidden">0</span>
-                            </button>
-                            <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
-                                <div class="p-3 border-b border-gray-100 bg-gray-50"><p class="text-sm font-medium text-gray-900">Notifications</p></div>
-                                <div id="notifications-list" class="divide-y divide-gray-100 max-h-96 overflow-y-auto"></div>
-                                <div class="p-3 border-t border-gray-100 bg-gray-50 text-center">
-                                    <button id="clear-all-notifications" class="text-xs text-blue-600 hover:text-blue-800">Clear All</button>
-                                </div>
-                            </div>
-                        </div>
-                        <button id="business-support-btn" class="p-2 text-white hover:text-blue-200 rounded-full hover:bg-blue-800 transition-colors">
-                            <i class="fas fa-headset text-xl"></i>
-                        </button>
-                        <div class="relative">
-                            <button id="user-menu-button" class="flex items-center space-x-2 text-white focus:outline-none">
-                                <div class="w-8 h-8 bg-blue-700 rounded-full flex items-center justify-center"><i class="fas fa-gavel text-sm"></i></div>
-                                <div class="text-left hidden md:block">
-                                    <p class="text-sm font-medium" id="dashboard-business-name">DCC Legal Chambers</p>
-                                    <p class="text-xs text-blue-200">Counsel Account</p>
-                                </div>
-                                <i class="fas fa-chevron-down text-xs"></i>
-                            </button>
-                            <div id="user-menu" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl z-50 border border-gray-200">
-                                <div class="p-3 border-b border-gray-100 bg-gray-50">
-                                    <p class="text-sm font-medium text-gray-900" id="menu-business-name">DCC Legal Chambers</p>
-                                    <p class="text-xs text-gray-500 font-mono" id="menu-business-id">DCC-LEGAL-001</p>
-                                </div>
-                                <div class="p-2">
-                                    <a href="#" id="statements-menu-btn" class="flex items-center px-3 py-2 text-sm text-gray-700 hover:bg-blue-50 rounded"><i class="fas fa-file-invoice-dollar w-5 text-gray-400"></i> Statements</a>
-                                    <a href="#" id="logout-btn" class="flex items-center px-3 py-2 text-sm text-red-600 hover:bg-red-50 rounded mt-1"><i class="fas fa-sign-out-alt w-5"></i> Sign Out</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <!-- Welcome Banner -->
-            <div class="bg-gradient-to-r from-[#0B2B4A] to-[#1A4A6F] rounded-xl shadow-lg p-6 mb-6 text-white">
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
-                    <div>
-                        <h1 class="text-2xl font-bold" id="welcome-business-name">Welcome to DCC Legal Chambers</h1>
-                        <p class="text-blue-100 mt-1">Trust Account Manager: <span id="welcome-manager">Eleanor Vance, Esq.</span></p>
-                    </div>
-                    <div class="mt-4 md:mt-0 flex space-x-3">
-                        <button id="quick-transfer-btn" class="px-4 py-2 bg-white text-blue-700 rounded-lg hover:bg-gray-100 font-medium transition-colors"><i class="fas fa-exchange-alt mr-2"></i>Transfer</button>
-                        <button id="generate-statement-btn" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium transition-colors"><i class="fas fa-file-pdf mr-2"></i>Statement</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Account Cards with realistic ~4.3M balance -->
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-                    <div class="flex justify-between items-start mb-4">
-                        <div><h2 class="text-lg font-semibold text-gray-800">Client Trust Checking</h2><p class="text-sm text-gray-500 font-mono">•••• 7890</p></div>
-                        <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">Primary IOLTA</span>
-                    </div>
-                    <div class="mb-4"><p class="text-sm text-gray-500">Available Balance</p><p class="text-3xl font-bold text-gray-800" id="checking-balance">$0.00</p></div>
-                    <div class="grid grid-cols-3 gap-3">
-                        <button class="action-btn p-2 bg-blue-50 hover:bg-blue-100 rounded-lg text-center" data-action="transfer"><i class="fas fa-exchange-alt text-blue-600"></i><span class="text-xs block mt-1">Transfer</span></button>
-                        <button class="action-btn p-2 bg-green-50 hover:bg-green-100 rounded-lg text-center" data-action="deposit"><i class="fas fa-arrow-down text-green-600"></i><span class="text-xs block mt-1">Deposit</span></button>
-                        <button class="action-btn p-2 bg-purple-50 hover:bg-purple-100 rounded-lg text-center" data-action="withdraw"><i class="fas fa-arrow-up text-purple-600"></i><span class="text-xs block mt-1">Withdraw</span></button>
-                    </div>
-                </div>
-                <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-                    <div class="flex justify-between items-start mb-4">
-                        <div><h2 class="text-lg font-semibold text-gray-800">Reserve Savings</h2><p class="text-sm text-gray-500 font-mono">•••• 4567</p></div>
-                        <span class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">3.25% APY</span>
-                    </div>
-                    <div class="mb-4"><p class="text-sm text-gray-500">Current Balance</p><p class="text-3xl font-bold text-gray-800" id="savings-balance">$0.00</p></div>
-                    <div class="bg-gray-50 p-3 rounded-lg">
-                        <div class="flex justify-between text-sm"><span class="text-gray-600">Monthly Interest</span><span class="text-green-600 font-medium" id="monthly-interest">$0.00</span></div>
-                        <div class="progress-bar mt-2"><div class="progress-fill bg-green-500" style="width: 0%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Transaction History -->
-            <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-200">
-                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center flex-wrap gap-3">
-                    <div><h2 class="text-lg font-semibold text-gray-800">Transaction History</h2><p class="text-sm text-gray-500">Complete ledger record</p></div>
-                    <div class="flex gap-3">
-                        <select id="transaction-filter" class="text-sm border-gray-300 rounded-md px-3 py-1"><option value="all">All Accounts</option><option value="checking">Checking</option><option value="savings">Savings</option></select>
-                        <button id="refresh-transactions" class="text-blue-600 hover:text-blue-800"><i class="fas fa-sync-alt"></i></button>
-                    </div>
-                </div>
-                <div id="transactions-container" class="divide-y divide-gray-200 max-h-96 overflow-y-auto"></div>
-            </div>
-
-            <!-- Summary -->
-            <div class="mt-6 bg-white rounded-xl shadow-sm p-6 border border-gray-200">
-                <div class="flex justify-between items-center flex-wrap gap-4">
-                    <div><p class="text-sm text-gray-500">Total Assets Under Counsel</p><p class="text-2xl font-bold text-gray-800" id="total-balance">$0.00</p></div>
-                    <div><p class="text-sm text-gray-500">YTD Growth</p><p class="text-xl font-semibold text-green-600" id="ytd-growth">+8.2%</p></div>
-                    <button id="open-new-account" class="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-50 transition-colors"><i class="fas fa-plus mr-2"></i>Open Account</button>
-                </div>
-            </div>
-        </main>
-        <footer class="bg-white border-t border-gray-200 mt-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center text-sm text-gray-500">
-                <p>© 2026 DCC Legal Chambers | Member FDIC | Equal Opportunity Counsel</p>
-                <p class="mt-1" id="footer-business-name">Trust & Estate Banking Division</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Transfer Modal -->
-    <div id="transfer-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-lg"><div class="p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-lg font-semibold">Transfer Funds</h3><button class="close-modal text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button></div>
-        <form id="transfer-form" class="space-y-4">
-            <div><label class="block text-sm font-medium mb-1">From Account</label><select id="transfer-from" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select></div>
-            <div><label class="block text-sm font-medium mb-1">Transfer Type</label><select id="transfer-type" class="w-full px-3 py-2 border rounded-md"><option value="internal">Internal Transfer (Between My Accounts)</option><option value="external">External Transfer (PENDING 24h)</option></select></div>
-            <div id="internal-transfer-section"><label class="block text-sm font-medium mb-1">To Account</label><select id="transfer-to-internal" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select></div>
-            <div id="external-transfer-section" class="hidden"><div class="bg-gray-50 p-4 rounded-lg space-y-3"><input type="text" id="recipient-name" placeholder="Recipient Full Name *" class="w-full px-3 py-2 border rounded-md"><input type="text" id="bank-name" placeholder="Bank Name *" class="w-full px-3 py-2 border rounded-md"><input type="text" id="account-number" placeholder="Account Number *" class="w-full px-3 py-2 border rounded-md font-mono"><input type="text" id="confirm-account" placeholder="Confirm Account Number *" class="w-full px-3 py-2 border rounded-md font-mono"><input type="text" id="routing-number" placeholder="Routing Number (9 digits)" maxlength="9" class="w-full px-3 py-2 border rounded-md font-mono"><p class="text-xs text-amber-600 mt-1"><i class="fas fa-clock mr-1"></i>External transfers show as PENDING for 24 hours before completing</p></div></div>
-            <div><label class="block text-sm font-medium mb-1">Amount *</label><input type="number" id="transfer-amount" step="0.01" min="0.01" class="w-full px-3 py-2 border rounded-md"></div>
-            <div><label class="block text-sm font-medium mb-1">Description / Reference</label><input type="text" id="transfer-desc" class="w-full px-3 py-2 border rounded-md" placeholder="e.g., Client settlement, invoice payment"></div>
-            <button type="submit" class="w-full py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700">Process Transfer</button>
-        </form></div></div></div>
-
-    <!-- Deposit Modal -->
-    <div id="deposit-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md"><div class="p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-lg font-semibold">Make a Deposit</h3><button class="close-modal text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button></div>
-        <form id="deposit-form" class="space-y-4"><select id="deposit-account" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select><input type="number" id="deposit-amount" step="0.01" placeholder="Amount" class="w-full px-3 py-2 border rounded-md"><input type="text" id="deposit-desc" placeholder="Description (e.g., Client retainer)" class="w-full px-3 py-2 border rounded-md"><button type="submit" class="w-full py-3 bg-green-600 text-white rounded-md hover:bg-green-700">Process Deposit</button></form></div></div></div>
-
-    <!-- Withdraw Modal -->
-    <div id="withdraw-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md"><div class="p-6"><div class="flex justify-between items-center mb-6"><h3 class="text-lg font-semibold">Make a Withdrawal</h3><button class="close-modal text-gray-400 hover:text-gray-600"><i class="fas fa-times"></i></button></div>
-        <form id="withdraw-form" class="space-y-4"><select id="withdraw-account" class="w-full px-3 py-2 border rounded-md"><option value="checking">Client Trust Checking</option><option value="savings">Reserve Savings</option></select><input type="text" id="withdraw-payable" placeholder="Payable To" class="w-full px-3 py-2 border rounded-md"><input type="number" id="withdraw-amount" step="0.01" placeholder="Amount" class="w-full px-3 py-2 border rounded-md"><input type="text" id="withdraw-desc" placeholder="Purpose" class="w-full px-3 py-2 border rounded-md"><button type="submit" class="w-full py-3 bg-red-600 text-white rounded-md hover:bg-red-700">Process Withdrawal</button></form></div></div></div>
-
-    <!-- Receipt Modal -->
-    <div id="receipt-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="modal-content bg-white rounded-2xl shadow-2xl w-full max-w-2xl"><div id="receipt-content" class="receipt-american p-6"></div><div class="p-4 border-t flex justify-end gap-3"><button id="print-receipt" class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"><i class="fas fa-print mr-2"></i>Print</button><button id="close-receipt" class="px-4 py-2 border rounded-md hover:bg-gray-50">Close</button></div></div></div>
-
-    <!-- Statement Modal -->
-    <div id="statement-modal" class="modal fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-        <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-5xl"><div class="p-6"><div id="statement-content"></div><div class="mt-6 flex justify-end"><button id="close-statement-modal" class="px-4 py-2 border rounded-md hover:bg-gray-50">Close</button></div></div></div></div>
-
-    <script>
-        // SINGLE USER ACCOUNT - No admin features
-        const SINGLE_USER = {
-            id: "DCC-LEGAL-001",
-            businessName: "DCC Legal Chambers",
-            password: "DCCounsel2026",
-            manager: "Eleanor Vance, Esq.",
-            bankingState: {
-                checking: 4382950.75,   // ~$4.38 million
-                savings: 1250000.00,    // ~$1.25 million
-                transactions: [],
-                notifications: [],
-                pendingExternal: []
-            }
-        };
-
-        let currentUser = SINGLE_USER;
-        let currentBankingState = SINGLE_USER.bankingState;
-
-        // Initialize with realistic transaction history
-        function initializeTransactions() {
-            if (currentBankingState.transactions.length > 0) return;
-            
-            const transactions = [];
-            const descriptions = [
-                "Client Retainer - Morrison Corp", "Legal Fees - Jackson Estate", "Settlement Disbursement", 
-                "Court Filing Fees", "Expert Witness Payment", "Client Deposit - Arbitration Fund",
-                "Operating Expense - Office", "Interest Income - Trust Account", "Wire Transfer Received",
-                "Legal Research Subscription", "Client Refund", "Mediation Fees Collected"
-            ];
-            
-            let checking = currentBankingState.checking;
-            let savings = currentBankingState.savings;
-            
-            for (let i = 0; i < 45; i++) {
-                const isDeposit = Math.random() > 0.55;
-                const amount = Math.round((2500 + Math.random() * 75000) * 100) / 100;
-                const account = Math.random() > 0.3 ? 'checking' : 'savings';
-                const date = new Date(Date.now() - (45 - i) * 24 * 3600000);
-                
-                if (account === 'checking') {
-                    checking = isDeposit ? checking + amount : checking - amount;
-                } else {
-                    savings = isDeposit ? savings + amount : savings - amount;
-                }
-                
-                transactions.push({
-                    id: Date.now() + i,
-                    date: date.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }),
-                    timestamp: date.getTime(),
-                    description: descriptions[i % descriptions.length] + (isDeposit ? " (Received)" : " (Paid)"),
-                    category: isDeposit ? "Deposit" : "Disbursement",
-                    amount: isDeposit ? amount : -amount,
-                    account: account === 'checking' ? 'Checking' : 'Savings',
-                    status: 'completed',
-                    reference: `DCC-${date.getFullYear()}${(date.getMonth()+1).toString().padStart(2,'0')}${date.getDate().toString().padStart(2,'0')}-${Math.floor(Math.random()*10000)}`
-                });
-            }
-            
-            transactions.sort((a, b) => b.timestamp - a.timestamp);
-            currentBankingState.transactions = transactions;
-            currentBankingState.checking = checking;
-            currentBankingState.savings = savings;
-            saveToStorage();
-        }
-
-        function saveToStorage() {
-            localStorage.setItem('dccLegal_singleUser', JSON.stringify({
-                bankingState: currentBankingState,
-                lastLogin: new Date().toISOString()
-            }));
-        }
-
-        function loadFromStorage() {
-            const saved = localStorage.getItem('dccLegal_singleUser');
-            if (saved) {
-                try {
-                    const data = JSON.parse(saved);
-                    currentBankingState.transactions = data.bankingState.transactions || [];
-                    currentBankingState.checking = data.bankingState.checking || 4382950.75;
-                    currentBankingState.savings = data.bankingState.savings || 1250000.00;
-                    currentBankingState.notifications = data.bankingState.notifications || [];
-                    currentBankingState.pendingExternal = data.bankingState.pendingExternal || [];
-                } catch(e) {}
-            }
-            if (currentBankingState.transactions.length === 0) initializeTransactions();
-            startPendingWatcher();
-        }
-
-        function updateBalancesDisplay() {
-            document.getElementById('checking-balance').textContent = `$${currentBankingState.checking.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-            document.getElementById('savings-balance').textContent = `$${currentBankingState.savings.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-            const total = currentBankingState.checking + currentBankingState.savings;
-            document.getElementById('total-balance').textContent = `$${total.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-            const interest = (currentBankingState.savings * 0.0325) / 12;
-            document.getElementById('monthly-interest').textContent = `$${interest.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
-        }
-
-        function renderTransactions(filter = 'all') {
-            let all = [...currentBankingState.transactions, ...(currentBankingState.pendingExternal || []).map(p => ({
-                ...p, status: 'pending', amount: -p.amount, id: p.id, date: p.createdDate,
-                description: p.description, account: p.fromAccount === 'checking' ? 'Checking' : 'Savings',
-                reference: p.reference, category: 'External Transfer (Pending)'
-            }))];
-            all.sort((a, b) => b.timestamp - a.timestamp);
-            
-            let filtered = all.filter(t => filter === 'all' ? true : t.account.toLowerCase().includes(filter));
-            const container = document.getElementById('transactions-container');
-            if (filtered.length === 0) { container.innerHTML = '<div class="p-8 text-center text-gray-500">No transactions found</div>'; return; }
-            
-            container.innerHTML = filtered.slice(0, 40).map(t => `
-                <div class="transaction-card p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-full flex items-center justify-center ${t.amount > 0 ? 'bg-green-100' : 'bg-red-100'}">
-                                <i class="fas ${t.amount > 0 ? 'fa-arrow-down text-green-600' : 'fa-arrow-up text-red-600'}"></i>
-                            </div>
-                            <div>
-                                <p class="font-medium text-gray-900">${t.description}</p>
-                                <div class="flex gap-2 text-xs text-gray-500"><span>${t.category || 'Transfer'}</span><span>•</span><span>${t.account}</span><span>•</span><span>${t.date}</span></div>
-                                ${t.status === 'pending' ? '<span class="pending-badge inline-block mt-1"><i class="fas fa-clock mr-1"></i>PENDING (24h hold)</span>' : '<span class="sent-badge inline-block mt-1"><i class="fas fa-check-circle mr-1"></i>COMPLETED</span>'}
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <p class="font-bold ${t.amount > 0 ? 'text-green-600' : 'text-red-600'}">${t.amount > 0 ? '+' : '-'}$${Math.abs(t.amount).toLocaleString()}</p>
-                            <button class="text-xs text-blue-600 hover:text-blue-800 view-receipt-btn mt-1" data-id="${t.id}"><i class="fas fa-receipt mr-1"></i>Receipt</button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-            
-            document.querySelectorAll('.view-receipt-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const id = parseInt(btn.dataset.id);
-                    let tx = [...currentBankingState.transactions, ...(currentBankingState.pendingExternal || [])].find(t => t.id === id);
-                    if (tx) showReceipt(tx);
-                });
-            });
-        }
-
-        function showReceipt(tx) {
-            const isPending = tx.status === 'pending';
-            const dateStr = new Date().toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'short' });
-            const html = `<div class="receipt-watermark p-6"><div class="text-center border-b pb-4"><div class="text-2xl font-bold text-[#0B2B4A]">DCC LEGAL CHAMBERS</div><p class="text-gray-500 text-sm">Counsel Trust Banking • Member FDIC</p><p class="text-xs text-gray-400 mt-1">Official Transaction Receipt</p></div>
-            <div class="grid grid-cols-2 gap-4 my-6 bg-gray-50 p-4 rounded-lg"><div><span class="text-xs text-gray-500">RECEIPT NO:</span><div class="font-mono text-sm">${tx.reference || `DCC-${tx.id}`}</div></div><div><span class="text-xs text-gray-500">DATE & TIME:</span><div class="text-sm">${dateStr}</div></div><div><span class="text-xs text-gray-500">STATUS:</span><div><span class="${isPending ? 'pending-badge' : 'sent-badge'} px-2 py-0.5 text-xs">${isPending ? 'PENDING (24h hold)' : 'COMPLETED / SENT'}</span></div></div><div><span class="text-xs text-gray-500">TRANSACTION TYPE:</span><div class="text-sm font-medium">${tx.amount > 0 ? 'DEPOSIT / CREDIT' : 'WITHDRAWAL / DEBIT'}</div></div></div>
-            <div class="border-t border-b py-4 my-4"><div class="flex justify-between mb-2"><span class="text-gray-600">Description:</span><span class="font-medium">${tx.description}</span></div><div class="flex justify-between mb-2"><span class="text-gray-600">Account:</span><span>${tx.account}</span></div><div class="flex justify-between"><span class="text-gray-600">Reference:</span><span class="font-mono text-xs">${tx.reference || 'N/A'}</span></div></div>
-            <div class="bg-[#0B2B4A] text-white p-5 rounded-xl text-center my-4"><p class="text-sm opacity-80">Transaction Amount</p><p class="text-4xl font-bold tracking-tight">${tx.amount > 0 ? '+' : '-'}$${Math.abs(tx.amount).toLocaleString('en-US', { minimumFractionDigits: 2 })}</p></div>
-            <div class="text-center text-xs text-gray-400 mt-4">This receipt serves as official record. For inquiries contact Counsel Trust Operations.<br>© 2026 DCC Legal Chambers</div></div>`;
-            document.getElementById('receipt-content').innerHTML = html;
-            document.getElementById('receipt-modal').classList.add('active');
-        }
-
-        function addTransaction(account, amount, description, category) {
-            if (account === 'checking') currentBankingState.checking += amount;
-            else currentBankingState.savings += amount;
-            
-            const transaction = {
-                id: Date.now(),
-                date: new Date().toLocaleDateString('en-US', { month: '2-digit', day: '2-digit', year: 'numeric' }),
-                timestamp: Date.now(),
-                description: description,
-                category: category,
-                amount: amount,
-                account: account === 'checking' ? 'Checking' : 'Savings',
-                status: 'completed',
-                reference: `DCC-${Date.now()}-${Math.floor(Math.random()*10000)}`
-            };
-            currentBankingState.transactions.unshift(transaction);
-            updateBalancesDisplay();
-            renderTransactions();
-            saveToStorage();
-            showReceipt(transaction);
-            addNotification('Transaction Complete', `$${Math.abs(amount).toLocaleString()} processed successfully`, 'success');
-        }
-
-        function scheduleExternalTransfer(fromAccount, amount, description, recipientDetails) {
-            const pendingId = Date.now();
-            const pendingObj = {
-                id: pendingId,
-                amount: amount,
-                fromAccount: fromAccount,
-                description: description || `External transfer to ${recipientDetails.recipientName} at ${recipientDetails.bankName}`,
-                createdDate: new Date().toLocaleDateString(),
-                timestamp: Date.now(),
-                expiry: Date.now() + 24 * 3600 * 1000,
-                reference: `EXT-${pendingId}`,
-                status: 'pending',
-                account: fromAccount === 'checking' ? 'Checking' : 'Savings'
-            };
-            
-            // Deduct immediately
-            if (fromAccount === 'checking') currentBankingState.checking -= amount;
-            else currentBankingState.savings -= amount;
-            
-            if (!currentBankingState.pendingExternal) currentBankingState.pendingExternal = [];
-            currentBankingState.pendingExternal.push(pendingObj);
-            updateBalancesDisplay();
-            renderTransactions();
-            saveToStorage();
-            addNotification('External Transfer Scheduled', `$${amount.toLocaleString()} to external account will be sent within 24 hours. Status: PENDING`, 'warning');
-            
-            // Auto-complete after 24 hours
-            setTimeout(() => finalizeExternalTransfer(pendingId), 24 * 3600 * 1000);
-        }
-
-        function finalizeExternalTransfer(pendingId) {
-            const idx = currentBankingState.pendingExternal?.findIndex(p => p.id === pendingId);
-            if (idx === -1 || !currentBankingState.pendingExternal) return;
-            const pending = currentBankingState.pendingExternal[idx];
-            
-            const completedTx = {
-                id: Date.now(),
-                date: new Date().toLocaleDateString(),
-                timestamp: Date.now(),
-                description: pending.description + " (Sent)",
-                category: "External Transfer",
-                amount: -pending.amount,
-                account: pending.fromAccount === 'checking' ? 'Checking' : 'Savings',
-                status: 'completed',
-                reference: pending.reference
-            };
-            currentBankingState.transactions.unshift(completedTx);
-            currentBankingState.pendingExternal.splice(idx, 1);
-            saveToStorage();
-            renderTransactions();
-            addNotification('External Transfer Sent', `$${pending.amount.toLocaleString()} transfer has been completed.`, 'success');
-        }
-
-        function startPendingWatcher() {
-            setInterval(() => {
-                if (currentBankingState.pendingExternal) {
-                    const before = currentBankingState.pendingExternal.length;
-                    currentBankingState.pendingExternal = currentBankingState.pendingExternal.filter(p => p.expiry > Date.now());
-                    if (before !== currentBankingState.pendingExternal.length) {
-                        renderTransactions();
-                        saveToStorage();
-                    }
-                }
-            }, 60000);
-        }
-
-        function addNotification(title, message, type = 'info') {
-            currentBankingState.notifications.unshift({
-                id: Date.now(), title, message, type, timestamp: Date.now(), read: false
-            });
-            saveToStorage();
-            updateNotificationDisplay();
-            showToast(title, message, type);
-        }
-
-        function showToast(title, message, type) {
-            const toast = document.createElement('div');
-            toast.className = `fixed bottom-4 right-4 z-50 bg-white rounded-lg shadow-lg p-4 max-w-sm border-l-4 ${type === 'success' ? 'border-green-500' : type === 'error' ? 'border-red-500' : 'border-amber-500'} transform transition-all duration-300 translate-x-full`;
-            toast.innerHTML = `<div class="flex gap-3"><i class="fas ${type === 'success' ? 'fa-check-circle text-green-500' : type === 'error' ? 'fa-exclamation-circle text-red-500' : 'fa-clock text-amber-500'}"></i><div><p class="font-medium">${title}</p><p class="text-sm text-gray-600">${message}</p></div><button class="close-toast text-gray-400"><i class="fas fa-times"></i></button></div>`;
-            document.body.appendChild(toast);
-            setTimeout(() => toast.classList.remove('translate-x-full'), 10);
-            toast.querySelector('.close-toast').onclick = () => { toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); };
-            setTimeout(() => { if (toast.parentNode) { toast.classList.add('translate-x-full'); setTimeout(() => toast.remove(), 300); } }, 5000);
-        }
-
-        function updateNotificationDisplay() {
-            const unread = currentBankingState.notifications?.filter(n => !n.read).length || 0;
-            const countEl = document.getElementById('notification-count');
-            countEl.textContent = unread;
-            countEl.classList.toggle('hidden', unread === 0);
-            if (unread > 0) countEl.classList.add('notification-pulse');
-            else countEl.classList.remove('notification-pulse');
-            
-            const container = document.getElementById('notifications-list');
-            if (container) {
-                if (!currentBankingState.notifications?.length) container.innerHTML = '<div class="p-4 text-center text-gray-500">No notifications</div>';
-                else container.innerHTML = currentBankingState.notifications.slice(0, 20).map(n => `<div class="p-3 hover:bg-gray-50 cursor-pointer ${!n.read ? 'bg-blue-50' : ''}" data-id="${n.id}"><p class="text-sm font-medium">${n.title}</p><p class="text-xs text-gray-500">${n.message}</p><p class="text-xs text-gray-400 mt-1">${new Date(n.timestamp).toLocaleTimeString()}</p></div>`).join('');
-            }
-        }
-
-        // Event Listeners
-        function init() {
-            loadFromStorage();
-            updateBalancesDisplay();
-            renderTransactions();
-            
-            document.getElementById('login-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const uid = document.getElementById('username').value;
-                const pwd = document.getElementById('password').value;
-                if (uid === SINGLE_USER.id && pwd === SINGLE_USER.password) {
-                    document.getElementById('processing-overlay').classList.add('active');
-                    setTimeout(() => {
-                        document.getElementById('login-page').style.display = 'none';
-                        document.getElementById('dashboard').classList.remove('hidden');
-                        document.getElementById('processing-overlay').classList.remove('active');
-                        addNotification('Welcome Back', `Logged into ${SINGLE_USER.businessName} Trust Account`, 'success');
-                    }, 800);
-                } else {
-                    showToast('Login Failed', 'Invalid Business ID or Password', 'error');
-                }
-            });
-            
-            document.getElementById('logout-btn').addEventListener('click', () => {
-                document.getElementById('dashboard').classList.add('hidden');
-                document.getElementById('login-page').style.display = 'flex';
-                document.getElementById('username').value = '';
-                document.getElementById('password').value = '';
-                showToast('Signed Out', 'You have been successfully logged out', 'success');
-            });
-            
-            document.getElementById('transfer-type').addEventListener('change', function() {
-                document.getElementById('internal-transfer-section').classList.toggle('hidden', this.value !== 'internal');
-                document.getElementById('external-transfer-section').classList.toggle('hidden', this.value !== 'external');
-            });
-            
-            document.getElementById('transfer-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const from = document.getElementById('transfer-from').value;
-                const type = document.getElementById('transfer-type').value;
-                const amount = parseFloat(document.getElementById('transfer-amount').value);
-                const desc = document.getElementById('transfer-desc').value;
-                const balance = from === 'checking' ? currentBankingState.checking : currentBankingState.savings;
-                
-                if (!amount || amount <= 0) { showToast('Error', 'Invalid amount', 'error'); return; }
-                if (amount > balance) { showToast('Error', 'Insufficient funds', 'error'); return; }
-                
-                if (type === 'internal') {
-                    const to = document.getElementById('transfer-to-internal').value;
-                    addTransaction(from, -amount, desc || `Transfer to ${to === 'checking' ? 'Trust Checking' : 'Reserve Savings'}`, 'Internal Transfer');
-                    addTransaction(to, amount, desc || `Transfer from ${from === 'checking' ? 'Trust Checking' : 'Reserve Savings'}`, 'Internal Transfer');
-                    document.getElementById('transfer-modal').classList.remove('active');
-                    document.getElementById('transfer-form').reset();
-                } else if (type === 'external') {
-                    const recipientName = document.getElementById('recipient-name').value;
-                    const bankName = document.getElementById('bank-name').value;
-                    const accountNumber = document.getElementById('account-number').value;
-                    const confirmAccount = document.getElementById('confirm-account').value;
-                    const routingNumber = document.getElementById('routing-number').value;
-                    if (!recipientName || !bankName || !accountNumber || !routingNumber) {
-                        showToast('Error', 'Please fill all external transfer fields', 'error');
-                        return;
-                    }
-                    if (routingNumber.length !== 9 || !/^\d+$/.test(routingNumber)) {
-                        showToast('Error', 'Routing number must be 9 digits', 'error');
-                        return;
-                    }
-                    if (accountNumber !== confirmAccount) {
-                        showToast('Error', 'Account numbers do not match', 'error');
-                        return;
-                    }
-                    scheduleExternalTransfer(from, amount, desc || `External transfer to ${recipientName}`, { recipientName, bankName });
-                    document.getElementById('transfer-modal').classList.remove('active');
-                    document.getElementById('transfer-form').reset();
-                }
-            });
-            
-            document.querySelectorAll('.action-btn[data-action="transfer"], #quick-transfer-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.getElementById('transfer-form').reset();
-                    document.getElementById('internal-transfer-section').classList.remove('hidden');
-                    document.getElementById('external-transfer-section').classList.add('hidden');
-                    document.getElementById('transfer-type').value = 'internal';
-                    document.getElementById('transfer-modal').classList.add('active');
-                });
-            });
-            
-            document.querySelectorAll('.action-btn[data-action="deposit"]').forEach(btn => {
-                btn.addEventListener('click', () => document.getElementById('deposit-modal').classList.add('active'));
-            });
-            
-            document.querySelectorAll('.action-btn[data-action="withdraw"]').forEach(btn => {
-                btn.addEventListener('click', () => document.getElementById('withdraw-modal').classList.add('active'));
-            });
-            
-            document.getElementById('deposit-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const account = document.getElementById('deposit-account').value;
-                const amount = parseFloat(document.getElementById('deposit-amount').value);
-                const desc = document.getElementById('deposit-desc').value;
-                if (!amount || amount <= 0) { showToast('Error', 'Invalid amount', 'error'); return; }
-                addTransaction(account, amount, desc || 'Deposit', 'Deposit');
-                document.getElementById('deposit-modal').classList.remove('active');
-                document.getElementById('deposit-form').reset();
-            });
-            
-            document.getElementById('withdraw-form').addEventListener('submit', (e) => {
-                e.preventDefault();
-                const account = document.getElementById('withdraw-account').value;
-                const amount = parseFloat(document.getElementById('withdraw-amount').value);
-                const desc = document.getElementById('withdraw-desc').value;
-                const payable = document.getElementById('withdraw-payable').value;
-                const balance = account === 'checking' ? currentBankingState.checking : currentBankingState.savings;
-                if (!amount || amount <= 0) { showToast('Error', 'Invalid amount', 'error'); return; }
-                if (amount > balance) { showToast('Error', 'Insufficient funds', 'error'); return; }
-                addTransaction(account, -amount, desc || `Withdrawal to ${payable || 'Bearer'}`, 'Withdrawal');
-                document.getElementById('withdraw-modal').classList.remove('active');
-                document.getElementById('withdraw-form').reset();
-            });
-            
-            document.getElementById('generate-statement-btn').addEventListener('click', () => {
-                const totalDeposits = currentBankingState.transactions.filter(t => t.amount > 0).reduce((s, t) => s + t.amount, 0);
-                const totalWithdrawals = currentBankingState.transactions.filter(t => t.amount < 0).reduce((s, t) => s + Math.abs(t.amount), 0);
-                const totalBalance = currentBankingState.checking + currentBankingState.savings;
-                document.getElementById('statement-content').innerHTML = `
-                    <div class="bg-white p-6 rounded-lg border"><div class="text-center mb-8"><div class="text-3xl font-bold text-[#0B2B4A] mb-2">DCC LEGAL CHAMBERS</div><p class="text-gray-600">Trust Account Statement</p><p class="text-sm text-gray-500">Generated: ${new Date().toLocaleString()}</p></div>
-                    <div class="grid grid-cols-3 gap-4 mb-8"><div class="bg-gray-50 p-4 rounded-lg text-center"><p class="text-sm text-gray-500">Total Deposits</p><p class="text-xl font-bold text-green-600">$${totalDeposits.toLocaleString()}</p></div><div class="bg-gray-50 p-4 rounded-lg text-center"><p class="text-sm text-gray-500">Total Withdrawals</p><p class="text-xl font-bold text-red-600">$${totalWithdrawals.toLocaleString()}</p></div><div class="bg-gray-50 p-4 rounded-lg text-center"><p class="text-sm text-gray-500">Current Balance</p><p class="text-xl font-bold">$${totalBalance.toLocaleString()}</p></div></div>
-                    <div class="overflow-x-auto"><table class="w-full text-sm"><thead class="bg-gray-100"><tr><th class="p-3 text-left">Date</th><th class="p-3 text-left">Description</th><th class="p-3 text-left">Account</th><th class="p-3 text-right">Amount</th></tr></thead><tbody>${currentBankingState.transactions.slice(0, 30).map(t => `<tr class="border-t"><td class="p-3">${t.date}</td><td class="p-3">${t.description}</td><td class="p-3">${t.account}</td><td class="p-3 text-right ${t.amount > 0 ? 'text-green-600' : 'text-red-600'}">${t.amount > 0 ? '+' : '-'}$${Math.abs(t.amount).toLocaleString()}</td></tr>`).join('')}</tbody></table></div>
-                    <div class="mt-6 p-4 bg-gray-100 rounded-lg text-center"><p><strong>DCC Legal Chambers</strong> | Trust Account ID: DCC-LEGAL-001</p><p>Account Manager: Eleanor Vance, Esq.</p></div></div>`;
-                document.getElementById('statement-modal').classList.add('active');
-            });
-            
-            document.getElementById('statements-menu-btn').addEventListener('click', () => document.getElementById('generate-statement-btn').click());
-            document.getElementById('clear-all-notifications').addEventListener('click', () => {
-                currentBankingState.notifications = [];
-                saveToStorage();
-                updateNotificationDisplay();
-                showToast('Cleared', 'All notifications cleared', 'info');
-            });
-            document.getElementById('business-support-btn').addEventListener('click', () => showToast('Client Support', 'Contact Eleanor Vance, Esq. at (212) 555-0142', 'info'));
-            document.getElementById('open-new-account').addEventListener('click', () => showToast('New Account', 'Please contact your account manager to open additional trust accounts', 'info'));
-            document.getElementById('print-receipt').addEventListener('click', () => { const w = window.open('', '_blank'); w.document.write(document.getElementById('receipt-content').innerHTML); w.print(); });
-            
-            document.querySelectorAll('.close-modal, #close-statement-modal, #close-receipt').forEach(btn => {
-                btn.addEventListener('click', () => document.querySelectorAll('.modal.active').forEach(m => m.classList.remove('active')));
-            });
-            
-            document.getElementById('notifications-btn').addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('notifications-dropdown').classList.toggle('hidden');
-                updateNotificationDisplay();
-            });
-            
-            document.getElementById('user-menu-button').addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('user-menu').classList.toggle('hidden');
-            });
-            
-            document.getElementById('transaction-filter').addEventListener('change', (e) => renderTransactions(e.target.value));
-            document.getElementById('refresh-transactions').addEventListener('click', () => renderTransactions(document.getElementById('transaction-filter').value));
-            
-            document.addEventListener('click', () => {
-                document.getElementById('notifications-dropdown')?.classList.add('hidden');
-                document.getElementById('user-menu')?.classList.add('hidden');
-            });
-        }
         
-        window.addEventListener('load', () => {
-            setTimeout(() => document.getElementById('loading-screen').style.display = 'none', 500);
-            init();
+        <div class="form-group">
+            <label><i class="fas fa-university"></i> Bank Name</label>
+            <input type="text" id="bankName" value="Bank of America">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-tag"></i> Transaction Status</label>
+            <div class="status-option-group" id="statusOptions">
+                <div class="status-option pending selected" data-status="pending">
+                    <i class="fas fa-clock"></i> Pending
+                </div>
+                <div class="status-option sent" data-status="sent">
+                    <i class="fas fa-paper-plane"></i> Sent
+                </div>
+                <div class="status-option completed" data-status="completed">
+                    <i class="fas fa-check-circle"></i> Completed
+                </div>
+                <div class="status-option cancelled" data-status="cancelled">
+                    <i class="fas fa-ban"></i> Cancelled
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-user"></i> Account Holder Name</label>
+            <input type="text" id="accountName" value="MEVADA DEELIPKUMAR SHANKARBHAI">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-credit-card"></i> Account Number</label>
+            <input type="text" id="accountNumber" value="50100700028722">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-exchange-alt"></i> Send To (Bank)</label>
+            <input type="text" id="sendToBank" value="HDFC Bank LTD">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-dollar-sign"></i> Transfer Amount (USD)</label>
+            <input type="number" id="amount" value="12000" step="100">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-id-card"></i> From Account (Debit)</label>
+            <input type="text" id="fromAccount" value="CHECKING ...0985">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-calendar-week"></i> Frequency</label>
+            <input type="text" id="frequency" value="ONE WEEK – (7DAYS)" placeholder="e.g., ONE TIME, MONTHLY, WEEKLY">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-calendar-alt"></i> Send On</label>
+            <input type="text" id="sendOn" value="07/07/2025, 6:30AM">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-clock"></i> Deliver By</label>
+            <input type="text" id="deliverBy" value="14/07/2025, 4:40PM">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-user-check"></i> Beneficiary Name</label>
+            <input type="text" id="beneficiaryName" value="ORLANDO MICHAEL">
+        </div>
+        
+        <div class="form-group">
+            <label><i class="fas fa-hashtag"></i> Beneficiary Account</label>
+            <input type="text" id="beneficiaryAccount" value="0829020985">
+        </div>
+        
+        <div class="btn-group">
+            <button class="btn-pdf" id="downloadPdfBtn">
+                <i class="fas fa-file-pdf"></i> Download PDF
+            </button>
+            <button class="btn-refresh" id="refreshBtn">
+                <i class="fas fa-eye"></i> Refresh Preview
+            </button>
+        </div>
+        
+        <div class="info-privacy">
+            <i class="fas fa-shield-alt"></i> <strong>Privacy Protected:</strong> Available balance is completely omitted from the receipt. Status can be changed to Pending, Sent, Completed, or Cancelled.
+        </div>
+    </div>
+
+    <!-- RECEIPT PREVIEW -->
+    <div class="receipt-wrapper">
+        <div class="receipt-container">
+            <div id="receiptContent" class="receipt-for-pdf">
+                <!-- Content dynamically populated -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Current selected status
+    let currentStatus = 'pending';
+    
+    // Helper functions
+    function formatUSD(value) {
+        let num = parseFloat(value);
+        if (isNaN(num)) num = 0;
+        return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    
+    function computeFee(amount) {
+        return amount * 0.03;
+    }
+    
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
         });
-    </script>
+    }
+    
+    // Get status display text and icon
+    function getStatusDisplay(status) {
+        switch(status) {
+            case 'sent': return { text: 'Sent', icon: 'fa-paper-plane' };
+            case 'completed': return { text: 'Completed', icon: 'fa-check-circle' };
+            case 'cancelled': return { text: 'Cancelled', icon: 'fa-ban' };
+            default: return { text: 'Pending', icon: 'fa-clock' };
+        }
+    }
+    
+    // Get all current values
+    function getFormValues() {
+        return {
+            bankName: document.getElementById('bankName').value.trim() || 'Bank of America',
+            status: currentStatus,
+            accountName: document.getElementById('accountName').value.trim() || 'MEVADA DEELIPKUMAR SHANKARBHAI',
+            accountNumber: document.getElementById('accountNumber').value.trim() || '50100700028722',
+            sendToBank: document.getElementById('sendToBank').value.trim() || 'HDFC Bank LTD',
+            amount: parseFloat(document.getElementById('amount').value) || 12000,
+            fromAccount: document.getElementById('fromAccount').value.trim() || 'CHECKING ...0985',
+            frequency: document.getElementById('frequency').value.trim() || 'ONE WEEK – (7DAYS)',
+            sendOn: document.getElementById('sendOn').value.trim() || '07/07/2025, 6:30AM',
+            deliverBy: document.getElementById('deliverBy').value.trim() || '14/07/2025, 4:40PM',
+            beneficiaryName: document.getElementById('beneficiaryName').value.trim() || 'ORLANDO MICHAEL',
+            beneficiaryAccount: document.getElementById('beneficiaryAccount').value.trim() || '0829020985',
+            confirmationNumber: 'OWD00000422757199',
+            submissionMsg: 'You have successfully submitted your transaction on 18/09/2024 at 2:30am USA Time'
+        };
+    }
+    
+    // Build the receipt HTML
+    function buildReceiptHTML(data) {
+        const feeAmount = computeFee(data.amount);
+        const statusInfo = getStatusDisplay(data.status);
+        
+        return `
+            <table style="width:100%;">
+                <!-- Header -->
+                <tr>
+                    <td style="padding-bottom:20px; border-bottom:2px solid #e0e6ed;">
+                        <div>
+                            <div class="bank-name">${escapeHtml(data.bankName)}</div>
+                            <div class="bank-tagline">Wire Transfer · Secure Confirmation</div>
+                        </div>
+                        <div style="margin-top:12px;">
+                            <span class="status-badge ${data.status}">
+                                <i class="fas ${statusInfo.icon}"></i> ${statusInfo.text}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Success message -->
+                <tr>
+                    <td>
+                        <div class="message-box">
+                            <i class="fas fa-check-circle"></i> ${escapeHtml(data.submissionMsg)}
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Cancel info (only show for pending status) -->
+                ${data.status === 'pending' ? `
+                <tr>
+                    <td>
+                        <div class="info-box">
+                            <i class="fas fa-exchange-alt"></i> You can cancel your wire transfer within 30 minutes of confirming the transaction, view your pending wire transfers, or send another wire transfer.
+                        </div>
+                    </td>
+                </tr>
+                ` : `
+                <tr>
+                    <td>
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i> Transaction ${statusInfo.text.toLowerCase()} on ${data.sendOn}. For any inquiries, please contact customer support.
+                        </div>
+                    </td>
+                </tr>
+                `}
+                
+                <!-- Wire Details Table - NO AVAILABLE BALANCE ROW -->
+                <tr>
+                    <td>
+                        <table class="details-table" style="width:100%;">
+                            <tr>
+                                <td class="label-cell">Account Name</td>
+                                <td class="value-cell"><strong>${escapeHtml(data.accountName)}</strong></td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Account Number</td>
+                                <td class="value-cell">${escapeHtml(data.accountNumber)}</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Confirmation Number</td>
+                                <td class="value-cell">${escapeHtml(data.confirmationNumber)}</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Send To</td>
+                                <td class="value-cell">${escapeHtml(data.sendToBank)}</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">From Account (Debit)</td>
+                                <td class="value-cell">${escapeHtml(data.fromAccount)}</td>
+                            </tr>
+                            <!-- AVAILABLE BALANCE ROW IS COMPLETELY OMITTED -->
+                            <tr>
+                                <td class="label-cell">Amount</td>
+                                <td class="value-cell amount-highlight">${formatUSD(data.amount)} USD</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Frequency</td>
+                                <td class="value-cell">${escapeHtml(data.frequency)}</td>
+                            </tr>
+                            <tr>
+                                <td class="label-cell">Wire Currency</td>
+                                <td class="value-cell">US Dollar (USD) <span style="font-size:11px;">(transfer being sent in USD)</span></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                
+                <!-- Fee Note -->
+                <tr>
+                    <td>
+                        <div class="fee-note">
+                            <i class="fas fa-percent"></i> 
+                            <strong>NOTE:</strong> In order for this international transfer to be completed, a charge fee of 3% of the transferred amount (${formatUSD(feeAmount)}) would be paid.
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Delivery Timeline -->
+                <tr>
+                    <td>
+                        <div class="delivery-section">
+                            <div class="delivery-item">
+                                <div class="delivery-label"><i class="far fa-calendar-alt"></i> Send on</div>
+                                <div class="delivery-value">${escapeHtml(data.sendOn)}</div>
+                            </div>
+                            <div class="delivery-item">
+                                <div class="delivery-label"><i class="far fa-clock"></i> Deliver by</div>
+                                <div class="delivery-value">${escapeHtml(data.deliverBy)}</div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Beneficiary Description -->
+                <tr>
+                    <td>
+                        <div class="beneficiary-box">
+                            <div class="beneficiary-title"><i class="fas fa-info-circle"></i> Description / Beneficiary Details</div>
+                            <div class="beneficiary-content">
+                                ACCOUNT NAME: ${escapeHtml(data.beneficiaryName)}<br>
+                                ACCOUNT NUMBER: ${escapeHtml(data.beneficiaryAccount)}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                
+                <!-- Watermark -->
+                <tr>
+                    <td>
+                        <div class="watermark">
+                            <i class="far fa-credit-card"></i> Confirmation: ${escapeHtml(data.confirmationNumber)}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        `;
+    }
+    
+    // Update the preview
+    function updatePreview() {
+        const data = getFormValues();
+        const receiptHTML = buildReceiptHTML(data);
+        document.getElementById('receiptContent').innerHTML = receiptHTML;
+    }
+    
+    // Generate PDF using html2canvas + jsPDF
+    async function generatePDF() {
+        updatePreview();
+        
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        const element = document.getElementById('receiptContent');
+        const btn = document.getElementById('downloadPdfBtn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Generating PDF...';
+        btn.disabled = true;
+        
+        try {
+            const canvas = await html2canvas(element, {
+                scale: 3,
+                backgroundColor: '#ffffff',
+                logging: false,
+                useCORS: true,
+                windowWidth: element.scrollWidth,
+                windowHeight: element.scrollHeight
+            });
+            
+            const imgData = canvas.toDataURL('image/png');
+            const { jsPDF } = window.jspdf;
+            
+            const imgWidth = 210;
+            const pageHeight = 297;
+            const imgHeight = (canvas.height * imgWidth) / canvas.width;
+            
+            let pdf = new jsPDF('p', 'mm', 'a4');
+            let position = 0;
+            
+            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            
+            if (imgHeight > pageHeight) {
+                let heightLeft = imgHeight - pageHeight;
+                position = -pageHeight;
+                while (heightLeft > 0) {
+                    pdf.addPage();
+                    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+                    position -= pageHeight;
+                }
+            }
+            
+            const timestamp = new Date().toISOString().slice(0, 19).replace(/:/g, '-');
+            pdf.save(`Wire_Receipt_${timestamp}.pdf`);
+            
+        } catch (error) {
+            console.error('PDF generation error:', error);
+            alert('Error generating PDF. Please try again.');
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+    
+    // Setup status option clicks
+    function setupStatusOptions() {
+        const options = document.querySelectorAll('.status-option');
+        options.forEach(option => {
+            option.addEventListener('click', function() {
+                options.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+                currentStatus = this.getAttribute('data-status');
+                updatePreview();
+            });
+        });
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', () => {
+        setupStatusOptions();
+        updatePreview();
+        
+        document.getElementById('refreshBtn').addEventListener('click', updatePreview);
+        document.getElementById('downloadPdfBtn').addEventListener('click', generatePDF);
+        
+        const inputs = ['bankName', 'accountName', 'accountNumber', 'sendToBank', 'amount', 
+                       'fromAccount', 'frequency', 'sendOn', 'deliverBy', 'beneficiaryName', 'beneficiaryAccount'];
+        
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) {
+                input.addEventListener('input', updatePreview);
+                input.addEventListener('change', updatePreview);
+            }
+        });
+    });
+</script>
 </body>
 </html>
